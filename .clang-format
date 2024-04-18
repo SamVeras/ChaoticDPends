@@ -1,0 +1,4 @@
+IndentWidth: 2
+TabWidth: 2
+UseTab: Never
+SpacesBeforeTrailingComments: 2
