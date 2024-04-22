@@ -1,30 +1,14 @@
+#include "classes.hh"
 #include "draw_utils.hh"
 #include "game.hh"
 #include "globals.hh"
 
-class Square : public SM::Drawable {
-private:
-  int x, y;
-  int side;
-
-public:
-  Square(int x, int y, int side) : x(x), y(y), side(side){};
-
-  void update() override{};
-
-  void draw(SDL_Renderer *ren) const override {
-    SM::set_color(ren, SM::WHITE);
-    SDL_Rect r{x, y, side, side};
-    SDL_RenderDrawRect(ren, &r);
-  }
-};
-
 void SM::Game::run() {
   while (!input()) {
-    SDL_SetRenderDrawColor(ren, 0, 0, 0, 0);
+    paused ? SM::set_color(ren, SM::GREY) : SM::set_color(ren, SM::BLACK);
     SDL_RenderClear(ren);
 
-    for (const auto &d : drawables) {
+    for (const auto& d : drawables) {
       if (!paused)
         d->update();
       d->draw(ren);
@@ -36,10 +20,13 @@ void SM::Game::run() {
 }
 
 int main() {
+  using std::make_unique, std::unique_ptr;
   SM::Game game;
-  auto s = std::make_unique<Square>(30, 30, 20);
-  game.add_drawable(move(s));
-  // game.add_drawable(move(std::make_unique<Square>(30, 30, 20)));
+
+  auto simple_pendulum = make_unique<SM::SPendulum>(
+      SDL_Point{SM::SCR_TW / 2, 200}, 300, M_PI * 0.6, 20, SM::RED);
+
+  game.add_drawable(move(simple_pendulum));
 
   game.run();
 }

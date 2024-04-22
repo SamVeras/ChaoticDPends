@@ -1,4 +1,8 @@
+BasedOnStyle: Chromium
 IndentWidth: 2
 TabWidth: 2
 UseTab: Never
 SpacesBeforeTrailingComments: 2
+AlignTrailingComments:
+  Kind: Always
+  OverEmptyLines: 2
