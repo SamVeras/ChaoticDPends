@@ -56,13 +56,39 @@ class Bob : public Drawable {
   float get_mass() const;
 };
 
+class TrailPoint : public Drawable {
+ private:
+  SDL_Point position;
+  unsigned int lifetime;
+
+ public:
+  TrailPoint(SDL_Point pos);
+  void update() override;
+  void draw(SDL_Renderer* ren) const override;
+
+  SDL_Point get_position() const;
+  unsigned int get_lifetime() const;
+};
+
+class Trailer : public Drawable {
+ private:
+  std::vector<SM::TrailPoint> points;
+  SDL_Color color;
+
+ public:
+  Trailer(SDL_Color c);
+  void update() override;
+  void draw(SDL_Renderer* ren) const override;
+  void add_point(float x, float y);
+};
+
 class SPendulum : public Drawable {
  private:
   SDL_Point origin;
   int arm_length;
   float angle;
-  float angular_vel;
-  float angular_acc;
+  float angle_vel;
+  float angle_acc;
   Bob bob;
 
  public:
@@ -74,16 +100,17 @@ class SPendulum : public Drawable {
 class DPendulum : public Drawable {
  private:
   SDL_Point origin;
-  int l1;      // Arm length 1
-  int l2;      // Arm length 2
-  float a1;    // Angle 1
-  float a1_v;  // Angle 1 velocity
-  float a1_a;  // Angle 1 acceleration
-  float a2;    // Angle 2
-  float a2_v;  // Angle 2 velocity
-  float a2_a;  // Angle 2 acceleration
-  Bob bob1;    // Bob / mass 1
-  Bob bob2;    // Bob / mass 2
+  int arm_l1;    // Arm length 1
+  int arm_l2;    // Arm length 2
+  float t1;      // Angle 1
+  float t1_vel;  // Angle 1 velocity
+  float t1_acc;  // Angle 1 acceleration
+  float t2;      // Angle 2
+  float t2_vel;  // Angle 2 velocity
+  float t2_acc;  // Angle 2 acceleration
+  Bob bob1;      // Bob 1
+  Bob bob2;      // Bob 2
+  Trailer trailer;
 
  public:
   DPendulum(SDL_Point o,
@@ -96,7 +123,8 @@ class DPendulum : public Drawable {
             float br1,
             float br2,
             SDL_Color bc1,
-            SDL_Color bc2);
+            SDL_Color bc2,
+            SDL_Color tc);
 
   void update() override;
   void draw(SDL_Renderer* ren) const override;

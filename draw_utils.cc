@@ -38,4 +38,9 @@ void draw_circle(SDL_Renderer* ren, int cx, int cy, int r) {
       t1 = t2, x--;
   }
 }
+
+void draw_line(SDL_Renderer* ren, SDL_Point p1, SDL_Point p2) {
+  SDL_RenderDrawLine(ren, p1.x, p1.y, p2.x, p2.y);
+};
+
 }  // namespace SM

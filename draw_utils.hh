@@ -14,5 +14,6 @@ static const SDL_Color CYAN = {0, 255, 255, 255};
 
 int set_color(SDL_Renderer* ren, const SDL_Color& color);
 void draw_circle(SDL_Renderer* ren, int cx, int cy, int r);
+void draw_line(SDL_Renderer* ren, SDL_Point p1, SDL_Point p2);
 
 }  // namespace SM
