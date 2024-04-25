@@ -15,13 +15,15 @@ void SM::draw_circle(SDL_Renderer* renderer, int center_x, int center_y, int rad
   int  cy   = center_y;
 
   while (x >= y) {
-    SDL_RenderDrawPoint(renderer, cx + x, cy - y - even);         // 1st quadrant: (CCW)
+    SDL_RenderDrawPoint(renderer, cx + x,
+                        cy - y - even);  // 1st quadrant: (CCW)
     SDL_RenderDrawPoint(renderer, cx + y, cy - x - even);
-    SDL_RenderDrawPoint(renderer, cx - y - even, cy - x - even);  // 2nd quadrant:
+    SDL_RenderDrawPoint(renderer, cx - y - even,
+                        cy - x - even);                    // 2nd quadrant:
     SDL_RenderDrawPoint(renderer, cx - x - even, cy - y - even);
-    SDL_RenderDrawPoint(renderer, cx - x - even, cy + y);         // 3rd quadrant:
+    SDL_RenderDrawPoint(renderer, cx - x - even, cy + y);  // 3rd quadrant:
     SDL_RenderDrawPoint(renderer, cx - y - even, cy + x);
-    SDL_RenderDrawPoint(renderer, cx + y, cy + x);                // 4th quadrant:
+    SDL_RenderDrawPoint(renderer, cx + y, cy + x);         // 4th quadrant:
     SDL_RenderDrawPoint(renderer, cx + x, cy + y);
     y++;
     t1 = t1 + y;

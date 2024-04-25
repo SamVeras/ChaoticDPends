@@ -2,14 +2,14 @@
 #include "fun_sdl.hh"
 #include "globals.hh"
 
-SM::Pendulum::Pendulum(int x,
-                       int y,
-                       int l1,
-                       int l2,
-                       float t1,
-                       float t2,
-                       float m1,
-                       float m2,
+SM::Pendulum::Pendulum(int       x,
+                       int       y,
+                       int       l1,
+                       int       l2,
+                       float     t1,
+                       float     t2,
+                       float     m1,
+                       float     m2,
                        SDL_Color c)
     : origin({x, y}),
       arm_length_1(l1),
@@ -30,15 +30,14 @@ void SM::Pendulum::update() {
   float t1 = angle_1;
   float t2 = angle_2;
 
-  float L1 = arm_length_1;
-  float L2 = arm_length_2;
+  float L1  = arm_length_1;
+  float L2  = arm_length_2;
   float m_1 = mass_1;
   float m_2 = mass_2;
-  float g = SM::GRAVITY;
+  float g   = SM::GRAVITY;
 
   // Tudo que não é proibido é permitido.
-  float t1_v² = angle_1_velocity * angle_1_velocity,
-        t_2_v² = angle_2_velocity * angle_2_velocity;
+  float t1_v² = angle_1_velocity * angle_1_velocity, t_2_v² = angle_2_velocity * angle_2_velocity;
 
   float num1_p1, num1_p2;
   float num2_p1, num2_p2, num2_p3;
@@ -71,8 +70,8 @@ void SM::Pendulum::update() {
   float y_1 = origin.y + cos(angle_1) * arm_length_1;
   float x_2 = x_1 + sin(angle_2) * arm_length_2;
   float y_2 = y_1 + cos(angle_2) * arm_length_2;
-  bob_1 = {static_cast<int>(x_1), static_cast<int>(y_1)};
-  bob_2 = {static_cast<int>(x_2), static_cast<int>(y_2)};
+  bob_1     = {static_cast<int>(x_1), static_cast<int>(y_1)};
+  bob_2     = {static_cast<int>(x_2), static_cast<int>(y_2)};
 }
 
 void SM::Pendulum::draw(SDL_Renderer* ren) const {

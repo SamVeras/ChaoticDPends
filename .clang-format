@@ -1,8 +1,22 @@
 BasedOnStyle: Chromium
+ColumnLimit: 100
 IndentWidth: 2
 TabWidth: 2
 UseTab: Never
+
 SpacesBeforeTrailingComments: 2
 AlignTrailingComments:
   Kind: Always
-  OverEmptyLines: 2
+  OverEmptyLines: 1
+
+AlignConsecutiveAssignments:
+  Enabled: true
+  AcrossEmptyLines: false
+  AcrossComments: false
+
+AlignConsecutiveDeclarations:
+  Enabled: true
+  AcrossEmptyLines: false
+  AcrossComments: false
+
+PointerAlignment: Left

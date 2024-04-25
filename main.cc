@@ -7,8 +7,7 @@
 
 void SM::Game::run() {
   while (!input()) {
-    paused ? SM::set_renderer_color(ren, SM::GREY)
-           : SM::set_renderer_color(ren, SM::BLACK);
+    paused ? SM::set_renderer_color(ren, SM::GREY) : SM::set_renderer_color(ren, SM::BLACK);
     SDL_RenderClear(ren);
 
     for (const auto& d : drawables) {
