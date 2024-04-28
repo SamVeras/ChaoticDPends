@@ -22,29 +22,27 @@ void SM::Game::run() {
 }
 
 int main() {
-  using std::make_unique, std::move;
+  using std::make_unique, std::move, SM::PendulumSystem;
   SM::Game game;
 
-  int       x  = SM::SCR_W / 2;
-  int       y  = SM::SCR_H / 2;
-  float     t1 = 100, t2 = 100.05;
-  float     t3 = 200, t4 = 200.05;
-  SDL_Color cf = {9, 255, 9, 255};
-  SDL_Color cs = {255, 0, 0, 255};
+  SDL_Point    origin_point    = {SM::SCR_W / 2, SM::SCR_H / 2};
+  unsigned int pendulum_amount = 500;
+  float        first_angle1    = 90;
+  float        first_angle2    = 90.001;
+  float        secnd_angle1    = 240;
+  float        secnd_angle2    = 240.001;
+  unsigned int arm_length1     = 125;
+  unsigned int arm_length2     = 185;
+  SDL_Color    color1          = {255, 255, 0, 255};
+  SDL_Color    color2          = {0, 255, 255, 255};
+  unsigned int trail_length    = 45;
+  SDL_Color    trail_color1    = {255, 255, 255, 255};
+  SDL_Color    trail_color2    = {0, 0, 255, 255};
 
-  for (float i = 0; i < SM::NUM_OF_PENDULUMS; i++) {
-    float proportion = i / SM::NUM_OF_PENDULUMS;
-
-    float angle_1 = SM::degrees_to_radians(SM::angle_interpolate(t1, t2, proportion));
-    float angle_2 = SM::degrees_to_radians(SM::angle_interpolate(t3, t4, proportion));
-
-    SDL_Color color = SM::color_interpolate(cf, cs, proportion);
-
-    auto Q = make_unique<SM::Pendulum>(x, y, 200, 200, angle_1, angle_2, 1, 1, color,
-                                       SM::TRAIL_LIFETIME, SDL_Color{255, 255, 255, 255});
-
-    game.add_drawable(move(Q));
-  }
+  auto PS = make_unique<PendulumSystem>(origin_point, pendulum_amount, first_angle1, first_angle2,
+                                        secnd_angle1, secnd_angle2, 1, 1, arm_length1, arm_length2,
+                                        color1, color2, trail_length, trail_color1, trail_color2);
+  game.add_drawable(move(PS));
 
   game.run();
 };

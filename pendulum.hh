@@ -43,4 +43,28 @@ class Pendulum : public Drawable {
   void draw(SDL_Renderer* ren) const override;
 };
 
+class PendulumSystem : public Drawable {
+ private:
+  std::vector<std::unique_ptr<Pendulum>> pendulums;
+
+ public:
+  PendulumSystem(SDL_Point    O,
+                 unsigned int N,
+                 float        A1,
+                 float        A2,
+                 float        T1,
+                 float        T2,
+                 float        M1,
+                 float        M2,
+                 int          L1,
+                 int          L2,
+                 SDL_Color    C1,
+                 SDL_Color    C2,
+                 int          TL,
+                 SDL_Color    TC1,
+                 SDL_Color    TC2);
+  void update() override;
+  void draw(SDL_Renderer* ren) const override;
+};
+
 }  // namespace SM
