@@ -27,9 +27,9 @@ int main() {
 
   int       x  = SM::SCR_W / 2;
   int       y  = SM::SCR_H / 2;
-  float     t1 = 90, t2 = 95;
-  float     t3 = 160, t4 = 165;
-  SDL_Color cf = {0, 255, 0, 255};
+  float     t1 = 100, t2 = 100.05;
+  float     t3 = 200, t4 = 200.05;
+  SDL_Color cf = {9, 255, 9, 255};
   SDL_Color cs = {255, 0, 0, 255};
 
   for (float i = 0; i < SM::NUM_OF_PENDULUMS; i++) {
@@ -40,9 +40,8 @@ int main() {
 
     SDL_Color color = SM::color_interpolate(cf, cs, proportion);
 
-    auto Q = make_unique<SM::Pendulum>(x, y, 200, 200, angle_1, angle_2, 1, 1, color);
-    // std::cout << "(" << (int)color.r << ", " << (int)color.g << ", " << (int)color.b << ", "
-    //           << (int)color.a << ")\n";
+    auto Q = make_unique<SM::Pendulum>(x, y, 200, 200, angle_1, angle_2, 1, 1, color,
+                                       SM::TRAIL_LIFETIME, SDL_Color{255, 255, 255, 255});
 
     game.add_drawable(move(Q));
   }

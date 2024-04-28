@@ -10,7 +10,9 @@ SM::Pendulum::Pendulum(int       x,
                        float     t2,
                        float     m1,
                        float     m2,
-                       SDL_Color c)
+                       SDL_Color c,
+                       int       tl,
+                       SDL_Color tc)
     : origin({x, y}),
       arm_length_1(l1),
       arm_length_2(l2),
@@ -24,7 +26,8 @@ SM::Pendulum::Pendulum(int       x,
       angle_2_acceleration(0),
       bob_1({0, 0}),
       bob_2({0, 0}),
-      color(c){};
+      color(c),
+      trail(tc, tl){};
 
 void SM::Pendulum::update() {
   float t1 = angle_1;

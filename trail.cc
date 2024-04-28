@@ -2,7 +2,8 @@
 #include <iostream>
 #include "fun_sdl.hh"
 
-SM::Trail::Trail() : points(), color({0, 0, 255, 255}), trail_size(100){};
+SM::Trail::Trail(SDL_Color trail_color, int trail_size)
+    : points(), color(trail_color), trail_size(trail_size){};
 
 void SM::Trail::add_point(SDL_Point& point) {
   points.push_back(point);
@@ -23,8 +24,7 @@ void SM::Trail::draw(SDL_Renderer* ren) const {
       continue;
     }
 
-    Uint8 a = color.a * ((float)c++ / trail_size);
-    std::cout << (int)a << "\n";
+    Uint8     a  = color.a * ((float)c++ / trail_size);
     SDL_Color nc = {color.r, color.g, color.b, a};
 
     set_renderer_color(ren, nc);

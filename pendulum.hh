@@ -27,7 +27,17 @@ class Pendulum : public Drawable {
   Trail trail;
 
  public:
-  Pendulum(int x, int y, int l1, int l2, float t1, float t2, float m1, float m2, SDL_Color c);
+  Pendulum(int       x,
+           int       y,
+           int       l1,
+           int       l2,
+           float     t1,
+           float     t2,
+           float     m1,
+           float     m2,
+           SDL_Color c,
+           int       tl,
+           SDL_Color tc);
 
   void update() override;
   void draw(SDL_Renderer* ren) const override;
