@@ -72,9 +72,13 @@ void SM::Pendulum::update() {
   float y_2 = y_1 + cos(angle_2) * arm_length_2;
   bob_1     = {static_cast<int>(x_1), static_cast<int>(y_1)};
   bob_2     = {static_cast<int>(x_2), static_cast<int>(y_2)};
+
+  trail.add_point(bob_2);
+  trail.update();
 }
 
 void SM::Pendulum::draw(SDL_Renderer* ren) const {
+  trail.draw(ren);
   SM::set_renderer_color(ren, color);
   SDL_Point points[3] = {origin, bob_1, bob_2};
   SDL_RenderDrawLines(ren, points, 3);

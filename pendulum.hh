@@ -1,5 +1,6 @@
 #pragma once
 #include "game.hh"
+#include "trail.hh"
 
 namespace SM {
 
@@ -21,8 +22,9 @@ class Pendulum : public Drawable {
 
   SDL_Point bob_1;
   SDL_Point bob_2;
-
   SDL_Color color;
+
+  Trail trail;
 
  public:
   Pendulum(int x, int y, int l1, int l2, float t1, float t2, float m1, float m2, SDL_Color c);
