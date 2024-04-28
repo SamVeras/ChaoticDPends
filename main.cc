@@ -25,22 +25,25 @@ int main() {
   using std::make_unique, std::move;
   SM::Game game;
 
-  int o = SM::SCR_W / 2;
-  int k = SM::SCR_H / 2;
+  int       x  = SM::SCR_W / 2;
+  int       y  = SM::SCR_H / 2;
+  float     t1 = 90, t2 = 95;
+  float     t3 = 160, t4 = 165;
+  SDL_Color cf = {0, 255, 0, 255};
+  SDL_Color cs = {255, 0, 0, 255};
 
   for (float i = 0; i < SM::NUM_OF_PENDULUMS; i++) {
-    uint8_t r, g, b;
+    float proportion = i / SM::NUM_OF_PENDULUMS;
 
-    r = (i / SM::NUM_OF_PENDULUMS) * 255;
-    b = 255 - (i / SM::NUM_OF_PENDULUMS) * 255;
-    g = 0;
+    float angle_1 = SM::degrees_to_radians(SM::angle_interpolate(t1, t2, proportion));
+    float angle_2 = SM::degrees_to_radians(SM::angle_interpolate(t3, t4, proportion));
 
-    float th_1 = SM::degrees_to_radians(160 + i / 10000);
-    float th_2 = SM::degrees_to_radians(100 - i / 10000);
+    SDL_Color color = SM::color_interpolate(cf, cs, proportion);
 
-    SDL_Color C{r, g, b, 255};
+    auto Q = make_unique<SM::Pendulum>(x, y, 200, 200, angle_1, angle_2, 1, 1, color);
+    // std::cout << "(" << (int)color.r << ", " << (int)color.g << ", " << (int)color.b << ", "
+    //           << (int)color.a << ")\n";
 
-    auto Q = make_unique<SM::Pendulum>(o, k, 220, 220, th_1, th_2, 1, 1, C);
     game.add_drawable(move(Q));
   }
 

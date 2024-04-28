@@ -18,5 +18,6 @@ int set_renderer_color(SDL_Renderer* renderer, const SDL_Color& color);
 void draw_circle(SDL_Renderer* renderer, int center_x, int center_y, int radius);
 // Desenha uma linha entre dois pontos
 int draw_line(SDL_Renderer* renderer, SDL_Point point_1, SDL_Point point_2);
-
+//
+SDL_Color color_interpolate(SDL_Color color1, SDL_Color color2, float proportion);
 }  // namespace SM
