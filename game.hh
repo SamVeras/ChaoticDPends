@@ -10,7 +10,7 @@ namespace SM {
 // Classe abstrata desenhável
 class Drawable {
  public:
-  void virtual update()                      = 0;
+  void virtual update(float delta_t)         = 0;
   void virtual draw(SDL_Renderer* ren) const = 0;
 };
 

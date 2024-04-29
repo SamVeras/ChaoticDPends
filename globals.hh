@@ -3,8 +3,8 @@
 namespace SM {
 
 const char* const TITLE     = "Screen";           // Game title
-const int         SCR_W     = 1000;               // Internal screen width
-const int         SCR_H     = 1000;               // Internal screen height
+const int         SCR_W     = 600;                // Internal screen width
+const int         SCR_H     = 600;                // Internal screen height
 const int         SCR_SCALE = 1;                  // Screen scaling factor
 const int         SCR_TW    = SCR_W * SCR_SCALE;  // Scaled screen width
 const int         SCR_TH    = SCR_H * SCR_SCALE;  // Scaled screen height
