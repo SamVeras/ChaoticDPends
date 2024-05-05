@@ -39,7 +39,7 @@ class Pendulum : public Drawable {
            int       tl,
            SDL_Color tc);
 
-  void update() override;
+  void update(float delta_t) override;
   void draw(SDL_Renderer* ren) const override;
 };
 
