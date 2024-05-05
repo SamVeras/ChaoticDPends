@@ -24,7 +24,7 @@ class Pendulum : public Drawable {
   SDL_Point bob_2;
   SDL_Color color;
 
-  Trail trail;
+  NonTerribleTrail trail;
 
  public:
   Pendulum(int       x,

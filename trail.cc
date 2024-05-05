@@ -3,12 +3,10 @@
 #include "fun_sdl.hh"
 
 SM::Trail::Trail(SDL_Color trail_color, int trail_size)
-    : points(), color(trail_color), trail_size(trail_size){};
-
+    : points(), color(trail_color), trail_size(trail_size) {}
 void SM::Trail::add_point(SDL_Point& point) {
   points.push_back(point);
-};
-
+}
 void SM::Trail::update() {
   if (points.size() > trail_size)
     points.pop_front();
@@ -31,4 +29,22 @@ void SM::Trail::draw(SDL_Renderer* ren) const {
     draw_line(ren, prev, p);
     prev = p;
   }
+}
+
+SM::NonTerribleTrail::NonTerribleTrail(SDL_Color trail_color, int trail_size)
+    : points(), color(trail_color), trail_size(trail_size) {}
+void SM::NonTerribleTrail::add_point(SDL_Point& point) {
+  points.push_back(point);
+}
+void SM::NonTerribleTrail::update() {
+  if (points.size() > trail_size)
+    points.pop_front();
+}
+void SM::NonTerribleTrail::draw(SDL_Renderer* ren) const {
+  SDL_Point ar[points.size()];
+  for (size_t i = 0; i < points.size(); i++) {
+    ar[i] = points[i];
+  }
+  set_renderer_color(ren, color);
+  SDL_RenderDrawLines(ren, ar, points.size());
 }
