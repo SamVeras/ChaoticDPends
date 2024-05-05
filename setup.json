@@ -1,0 +1,30 @@
+{
+  "pendulums": {
+    "origin": [500, 500],
+    "pendulum count": 2000,
+
+    "first arm": {
+      "length": 200,
+      "mass": 1,
+      "angle range": [90, 90.001],
+      "color range": [
+        [0, 0, 255],
+        [255, 0, 0]
+      ]
+    },
+
+    "second arm": {
+      "length": 160,
+      "mass": 1,
+      "angle range": [240, 240.001]
+    }
+  },
+
+  "trails": {
+    "length": 5,
+    "color range": [
+      [255, 255, 255],
+      [255, 0, 0]
+    ]
+  }
+}

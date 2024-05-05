@@ -88,40 +88,40 @@ void SM::Pendulum::draw(SDL_Renderer* ren) const {
   SDL_RenderDrawLines(ren, points, 3);
 }
 
-SM::PendulumSystem::PendulumSystem(SDL_Point    O,
-                                   unsigned int N,
-                                   float        A1,
-                                   float        A2,
-                                   float        T1,
-                                   float        T2,
-                                   float        M1,
-                                   float        M2,
-                                   int          L1,
-                                   int          L2,
-                                   SDL_Color    C1,
-                                   SDL_Color    C2,
-                                   int          TL,
-                                   SDL_Color    TC1,
-                                   SDL_Color    TC2) {
-  for (float i = 0; i < N; i++) {
-    // Declarations
-    float     P  = i / N;  // Proportion
-    int       X  = O.x;
-    int       Y  = O.y;
-    float     R1 = degrees_to_radians(angle_interpolate(A1, A2, P));
-    float     R2 = degrees_to_radians(angle_interpolate(T1, T2, P));
-    SDL_Color C  = color_interpolate(C1, C2, P);
-    SDL_Color TC = color_interpolate(TC1, TC2, P);  //  C;  // ?
+// SM::PendulumSystem::PendulumSystem(SDL_Point    O,
+//                                    unsigned int N,
+//                                    float        A1,
+//                                    float        A2,
+//                                    float        T1,
+//                                    float        T2,
+//                                    float        M1,
+//                                    float        M2,
+//                                    int          L1,
+//                                    int          L2,
+//                                    SDL_Color    C1,
+//                                    SDL_Color    C2,
+//                                    int          TL,
+//                                    SDL_Color    TC1,
+//                                    SDL_Color    TC2) {
+//   for (float i = 0; i < N; i++) {
+//     // Declarations
+//     float     P  = i / N;  // Proportion
+//     int       X  = O.x;
+//     int       Y  = O.y;
+//     float     R1 = degrees_to_radians(angle_interpolate(A1, A2, P));
+//     float     R2 = degrees_to_radians(angle_interpolate(T1, T2, P));
+//     SDL_Color C  = color_interpolate(C1, C2, P);
+//     SDL_Color TC = color_interpolate(TC1, TC2, P);  //  C;  // ?
 
-    auto Q = std::make_unique<SM::Pendulum>(X, Y, L1, L2, R1, R2, M1, M2, C, TL, TC);
-    pendulums.push_back(move(Q));
-  }
-}
-void SM::PendulumSystem::update() {
-  for (const auto& p : pendulums)
-    p->update();
-}
-void SM::PendulumSystem::draw(SDL_Renderer* ren) const {
-  for (const auto& p : pendulums)
-    p->draw(ren);
-}
+//     auto Q = std::make_unique<SM::Pendulum>(X, Y, L1, L2, R1, R2, M1, M2, C, TL, TC);
+//     pendulums.push_back(move(Q));
+//   }
+// }
+// void SM::PendulumSystem::update() {
+//   for (const auto& p : pendulums)
+//     p->update();
+// }
+// void SM::PendulumSystem::draw(SDL_Renderer* ren) const {
+//   for (const auto& p : pendulums)
+//     p->draw(ren);
+// }
