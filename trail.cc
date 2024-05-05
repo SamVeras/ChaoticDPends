@@ -9,7 +9,7 @@ void SM::Trail::add_point(SDL_Point& point) {
   points.push_back(point);
 };
 
-void SM::Trail::update(float delta_t) {
+void SM::Trail::update() {
   if (points.size() > trail_size)
     points.pop_front();
 }

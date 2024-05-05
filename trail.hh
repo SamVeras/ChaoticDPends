@@ -11,7 +11,7 @@ class Trail : public Drawable {
  public:
   Trail(SDL_Color trail_color, int trail_size);
   void add_point(SDL_Point& point);
-  void update(float delta_t) override;
+  void update() override;
   void draw(SDL_Renderer* ren) const override;
 };
 }  // namespace SM

@@ -30,7 +30,7 @@ SM::Pendulum::Pendulum(int       x,
       color(c),
       trail(tc, tl){};
 
-void SM::Pendulum::update(float delta_t) {
+void SM::Pendulum::update() {
   float t1 = angle_1;
   float t2 = angle_2;
 
@@ -61,14 +61,14 @@ void SM::Pendulum::update(float delta_t) {
   angle_1_acceleration = (num1_p1 - num1_p2) / den_1;
   angle_2_acceleration = (num2_p1 * (num2_p2 + num2_p3)) / den_2;
 
-  angle_1_velocity += angle_1_acceleration * delta_t;
-  angle_2_velocity += angle_2_acceleration * delta_t;
+  angle_1_velocity += angle_1_acceleration;
+  angle_2_velocity += angle_2_acceleration;
 
   angle_1_velocity *= SM::DAMPING;
   angle_2_velocity *= SM::DAMPING;
 
-  angle_1 += angle_1_velocity * delta_t;
-  angle_2 += angle_2_velocity * delta_t;
+  angle_1 += angle_1_velocity;
+  angle_2 += angle_2_velocity;
 
   float x_1 = origin.x + sin(angle_1) * arm_length_1;
   float y_1 = origin.y + cos(angle_1) * arm_length_1;
@@ -78,7 +78,7 @@ void SM::Pendulum::update(float delta_t) {
   bob_2     = {static_cast<int>(x_2), static_cast<int>(y_2)};
 
   trail.add_point(bob_2);
-  trail.update(delta_t);
+  trail.update();
 }
 
 void SM::Pendulum::draw(SDL_Renderer* ren) const {
