@@ -1,4 +1,6 @@
 #include "game.hpp"
+#include <cmath>
+#include "classes.hpp"
 #include "raylib.h"
 #include "setup.hpp"
 
@@ -13,6 +15,9 @@ Game::~Game() {
 }
 
 void Game::run() {
+  auto dp = std::make_unique<DoublePendulum>(Vector2{200, 200}, 50, 1.f, M_PI / 3, RED, 30, 1.f,
+                                             M_PI / 5, GREEN);
+  this->add_drawable(std::move(dp));
   while (!WindowShouldClose()) {
     BeginDrawing();
     ClearBackground(Setup::background);

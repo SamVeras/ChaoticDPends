@@ -9,18 +9,10 @@ class Drawable {
 };
 
 /* ------------------------------- Concreta ------------------------------- */
-class PendulumArm : public Drawable {
- private:
+struct PendulumArm {
   int   length;
   float mass, theta, theta_v, theta_a;
   Color color;
-
- public:
-  PendulumArm(int l, float m, float t, Color c);
-  ~PendulumArm() = default;
-
-  void update(float dt) override;
-  void draw() const override;
 };
 
 class SimplePendulum : public Drawable {
@@ -36,4 +28,23 @@ class SimplePendulum : public Drawable {
   void draw() const override;
 };
 
-class DoublePendulum : public Drawable {};
+class DoublePendulum : public Drawable {
+ private:
+  Vector2     origin;
+  PendulumArm arm1, arm2;
+
+ public:
+  DoublePendulum(Vector2 o,
+                 int     l1,
+                 float   m1,
+                 float   t1,
+                 Color   c1,
+                 int     l2,
+                 float   m2,
+                 float   t2,
+                 Color   c2);
+  ~DoublePendulum() = default;
+
+  void update(float dt) override;
+  void draw() const override;
+};
