@@ -10,9 +10,11 @@ SimplePendulum::SimplePendulum(Vector2 o, int l, float m, float t, Color c)
 
 void SimplePendulum::update(float dt) {
   float force = arm.mass * Global::gravity * sinf(arm.theta);
+
   arm.theta_a = -force / arm.length;
   arm.theta_v += arm.theta_a * dt;
   arm.theta_v *= Global::damping;
+
   arm.theta += arm.theta_v;
 }
 
@@ -48,8 +50,6 @@ void DoublePendulum::update(float dt) {
   c = l1 * (2 * m1 + m2 - m2 * cosf(2 * t1 - 2 * t2));
 
   arm1.theta_a = (a - b) / c;
-  arm1.theta_v += arm1.theta_a * dt;
-  arm1.theta += arm1.theta_v;
 
   float x, y, z;
 
@@ -58,7 +58,14 @@ void DoublePendulum::update(float dt) {
   z = l2 * (2 * m1 + m2 - m2 * cosf(2 * t1 - 2 * t2));
 
   arm2.theta_a = (y * x) / z;
+
+  arm1.theta_v += arm1.theta_a * dt;
   arm2.theta_v += arm2.theta_a * dt;
+
+  arm1.theta_v *= Global::damping;
+  arm2.theta_v *= Global::damping;
+
+  arm1.theta += arm1.theta_v;
   arm2.theta += arm2.theta_v;
 }
 

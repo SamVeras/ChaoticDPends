@@ -15,16 +15,16 @@ Game::~Game() {
 }
 
 void Game::run() {
-  auto dp = std::make_unique<DoublePendulum>(Vector2{200, 200}, 50, 1.f, M_PI / 3, RED, 30, 1.f,
+  auto dp = std::make_unique<DoublePendulum>(Vector2{200, 200}, 150, 1.f, M_PI, RED, 200, 1.f,
                                              M_PI / 5, GREEN);
   this->add_drawable(std::move(dp));
   while (!WindowShouldClose()) {
     BeginDrawing();
+
     ClearBackground(Setup::background);
-    for (auto& drawable : drawables) {
-      drawable->update(GetFrameTime());
-      drawable->draw();
-    }
+    for (auto& drawable : drawables)
+      drawable->update(GetFrameTime()), drawable->draw();
+
     EndDrawing();
   }
 }
