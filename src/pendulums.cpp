@@ -1,22 +1,29 @@
 #include <cmath>
 #include <string>
 #include "classes.hpp"
-#include "setup.hpp"
+#include "global.hpp"
 
-/* ---------------------------- SimplePendulum ---------------------------- */
+/* ------------------------------------------------------------------------ */
+/*                              SimplePendulum                              */
+/* ------------------------------------------------------------------------ */
+/* ------------------------------ Construtor ------------------------------ */
 
-SimplePendulum::SimplePendulum(Vector2 o, int l, float m, float t, Color c)
-    : origin(o), arm{l, m, t, 0.f, 0.f, c} {}
+SimplePendulum::SimplePendulum(Vector2 o, int l, float m, float t, Color c, float d)
+    : origin(o), arm{l, m, t, 0.f, 0.f, c}, damping(d) {}
+
+/* ----------------------------- Update method ---------------------------- */
 
 void SimplePendulum::update(float dt) {
   float force = arm.mass * Global::gravity * sinf(arm.theta);
 
   arm.theta_a = -force / arm.length;
   arm.theta_v += arm.theta_a * dt;
-  arm.theta_v *= Global::damping;
+  arm.theta_v *= damping;
 
   arm.theta += arm.theta_v;
 }
+
+/* ------------------------------ Draw method ----------------------------- */
 
 void SimplePendulum::draw() const {
   float x = origin.x + arm.length * sinf(arm.theta);
@@ -25,7 +32,10 @@ void SimplePendulum::draw() const {
   DrawCircleV({x, y}, 5.f, arm.color);
 }
 
-/* ---------------------------- DoublePendulum ---------------------------- */
+/* ------------------------------------------------------------------------ */
+/*                              DoublePendulum                              */
+/* ------------------------------------------------------------------------ */
+/* ------------------------------ Construtor ------------------------------ */
 
 DoublePendulum::DoublePendulum(Vector2 o,
                                int     l1,
@@ -35,8 +45,11 @@ DoublePendulum::DoublePendulum(Vector2 o,
                                int     l2,
                                float   m2,
                                float   t2,
-                               Color   c2)
-    : origin(o), arm1{l1, m1, t1, 0.f, 0.f, c1}, arm2{l2, m2, t2, 0.f, 0.f, c2} {}
+                               Color   c2,
+                               float   d)
+    : origin(o), arm1{l1, m1, t1, 0.f, 0.f, c1}, arm2{l2, m2, t2, 0.f, 0.f, c2}, damping(d) {}
+
+/* ----------------------------- Update method ---------------------------- */
 
 void DoublePendulum::update(float dt) {
   float t1 = arm1.theta, t2 = arm2.theta, l1 = arm1.length, l2 = arm2.length;
@@ -62,12 +75,14 @@ void DoublePendulum::update(float dt) {
   arm1.theta_v += arm1.theta_a * dt;
   arm2.theta_v += arm2.theta_a * dt;
 
-  arm1.theta_v *= Global::damping;
-  arm2.theta_v *= Global::damping;
+  arm1.theta_v *= damping;
+  arm2.theta_v *= damping;
 
   arm1.theta += arm1.theta_v;
   arm2.theta += arm2.theta_v;
 }
+
+/* ------------------------------ Draw method ----------------------------- */
 
 void DoublePendulum::draw() const {
   float x1 = origin.x + sinf(arm1.theta) * arm1.length;

@@ -2,12 +2,11 @@
 #include <cmath>
 #include "classes.hpp"
 #include "raylib.h"
-#include "setup.hpp"
 
 Game::Game() {
-  SetConfigFlags(FLAG_WINDOW_UNDECORATED | FLAG_MSAA_4X_HINT);
-  InitWindow(Setup::win_width, Setup::win_height, Setup::title);
-  SetTargetFPS(Setup::framerate);
+  SetConfigFlags(FLAG_MSAA_4X_HINT);
+  InitWindow(settings.win_width, settings.win_height, "settings.title.c_str()");
+  SetTargetFPS(settings.framerate);
 }
 
 Game::~Game() {
@@ -15,16 +14,11 @@ Game::~Game() {
 }
 
 void Game::run() {
-  auto dp = std::make_unique<DoublePendulum>(Vector2{200, 200}, 150, 1.f, M_PI, RED, 200, 1.f,
-                                             M_PI / 5, GREEN);
-  this->add_drawable(std::move(dp));
   while (!WindowShouldClose()) {
     BeginDrawing();
-
-    ClearBackground(Setup::background);
+    ClearBackground(settings.background_color);
     for (auto& drawable : drawables)
       drawable->update(GetFrameTime()), drawable->draw();
-
     EndDrawing();
   }
 }
