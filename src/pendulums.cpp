@@ -75,8 +75,8 @@ void DoublePendulum::update(float dt) {
   arm1.theta_v += arm1.theta_a * dt;
   arm2.theta_v += arm2.theta_a * dt;
 
-  arm1.theta_v *= damping;
-  arm2.theta_v *= damping;
+  arm1.theta_v -= damping * arm1.theta_v;
+  arm2.theta_v -= damping * arm2.theta_v;
 
   arm1.theta += arm1.theta_v;
   arm2.theta += arm2.theta_v;
