@@ -3,16 +3,25 @@ title = "Simulação de Pêndulos"
 width = 800
 height = 600
 framerate = 60
-
-[colors]
 background = [0, 0, 50, 255]
-
 
 [pendulums]
 origin = [400, 300]
-lengths = [200, 200]
-initial_angles = [0, 0] # Em graus
-final_angles = [0, 0]   # Em graus
-masses = [1, 1]
 count = 5
 damping = 0.01
+
+[first_arm]
+length = 200
+initial_theta = 90
+final_theta = 100
+initial_color = [255, 255, 255, 255]
+final_color = [255, 0, 0, 255]
+mass = 1
+
+[second_arm]
+length = 180
+initial_theta = 0
+final_theta = 10
+initial_color = [0, 0, 255, 255]
+final_color = [0, 255, 0, 255]
+mass = 1
