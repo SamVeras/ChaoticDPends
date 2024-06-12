@@ -38,6 +38,11 @@ Config::Config() {
   final_theta_2   = config["second_arm"]["final_theta"].value_or(0.f);
   initial_color_2 = load_color(config["second_arm"]["initial_color"]);
   final_color_2   = load_color(config["second_arm"]["final_color"]);
+
+  initial_theta_1 = degrees_to_radians(initial_theta_1);
+  final_theta_1   = degrees_to_radians(final_theta_1);
+  initial_theta_2 = degrees_to_radians(initial_theta_2);
+  final_theta_2   = degrees_to_radians(final_theta_2);
 }
 
 /* ------------------------------------------------------------------------ */
