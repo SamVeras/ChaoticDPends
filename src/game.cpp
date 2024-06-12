@@ -1,4 +1,7 @@
 #include "game.hpp"
+#include <array>
+#include <iomanip>
+#include <sstream>
 #include "functions.hpp"
 
 /* ---------------- Função inacessível por outros arquivos ---------------- */
@@ -32,7 +35,7 @@ void create_pendulums(Game& game, const Config& settings) {
 
 Game::Game() {
   create_pendulums(*this, settings);
-  SetConfigFlags(FLAG_MSAA_4X_HINT);
+  SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_MSAA_4X_HINT);
   InitWindow(settings.win_width, settings.win_height, settings.title.c_str());
   settings.init_font();  // Não é possível inicializar a fonte antes da janela do jogo
   SetTargetFPS(settings.framerate);
@@ -48,14 +51,52 @@ Game::~Game() {
 
 void Game::display_fps() {
   std::string str = "FPS: " + std::to_string(GetFPS());
-  DrawTextEx(settings.font, str.c_str(), {10, 10}, settings.font_size, 1, WHITE);
+  DrawTextEx(settings.font, str.c_str(), {0, 0}, settings.font_size, 1, WHITE);
 }
 
 /* ------------------------------------------------------------------------ */
 
+std::string stupid_strings(float n, float dec) {
+  std::ostringstream s;
+  s << std::fixed << std::setprecision(dec) << n;
+  return s.str();
+}
+
 void Game::display_debug() {
-  DrawTextEx(settings.font, std::to_string(settings.count).c_str(), {10, 40}, settings.font_size, 1,
-             WHITE);
+  std::string RES = "RES:\t";
+  RES += std::to_string(GetScreenWidth()) + "x" + std::to_string(GetScreenHeight());
+
+  std::string CNT = "CNT:\t";
+  CNT += std::to_string(settings.count);
+
+  std::string DMP = "DMP:\t";
+  DMP += stupid_strings(settings.damping * 100, 2) + "%";
+
+  std::string LEN = "LEN:\t";
+  LEN += stupid_strings(settings.length_1, 2) + ", " + stupid_strings(settings.length_2, 2);
+
+  std::string MSS = "MSS:\t";
+  MSS += stupid_strings(settings.mass_1, 2) + ", " + stupid_strings(settings.mass_2, 2);
+
+  std::string ANG1 = "TH1:\t";
+  ANG1 += stupid_strings(settings.initial_theta_1 / M_PI, 10) + "π -> ";
+  ANG1 += stupid_strings(settings.final_theta_1 / M_PI, 10) + "π";
+
+  std::string ANG2 = "TH2:\t";
+  ANG2 += stupid_strings(settings.initial_theta_2 / M_PI, 10) + "π -> ";
+  ANG2 += stupid_strings(settings.final_theta_2 / M_PI, 10) + "π";
+
+  std::string DT = " ΔT:\t";
+  DT += std::to_string(GetFrameTime()) + "s";
+
+  std::array<std::string, 8> debug = {DT, ANG2, ANG1, DMP, MSS, LEN, RES, CNT};
+
+  float y = GetScreenHeight() - settings.font_size;
+  for (size_t i = 0; i < debug.size(); i++) {
+    std::string str = debug[i];
+    DrawTextEx(settings.font, str.c_str(), {0, y - i * settings.font_size}, settings.font_size, 1,
+               WHITE);
+  }
 }
 
 /* ------------------------------------------------------------------------ */

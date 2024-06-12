@@ -52,7 +52,7 @@ Config::Config() {
 }
 
 void Config::init_font() {
-  font = LoadFont(font_path.c_str());
+  font = LoadFontEx(font_path.c_str(), int(font_size), NULL, 1024);
   SetTextureFilter(font.texture, TEXTURE_FILTER_TRILINEAR);
 }
 
