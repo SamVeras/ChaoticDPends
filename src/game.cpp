@@ -13,6 +13,10 @@ Game::~Game() {
   CloseWindow();
 }
 
+void Game::add_drawable(std::unique_ptr<Drawable> ptr) {
+  drawables.push_back(std::move(ptr));
+}
+
 void Game::run() {
   while (!WindowShouldClose()) {
     BeginDrawing();
