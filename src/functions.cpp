@@ -28,3 +28,7 @@ Color color_interpolation(const Color& from, const Color& to, float p) {
   unsigned char a = (unsigned char)(from.a + (to.a - from.a) * p);
   return {r, g, b, a};
 }
+
+float angle_difference(float from, float to) {
+  return (to - from) / from;
+}

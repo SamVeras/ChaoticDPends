@@ -21,3 +21,5 @@ float angle_interpolation(float from, float to, float p);
 Color color_interpolation(const Color& from, const Color& to, float p);
 
 /* ------------------------------------------------------------------------ */
+
+float angle_difference(float from, float to);

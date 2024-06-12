@@ -3,6 +3,7 @@
 #include <iomanip>
 #include <sstream>
 #include "functions.hpp"
+#include "global.hpp"
 
 /* ---------------- Função inacessível por outros arquivos ---------------- */
 // Adicionar pêndulos conforme as configurações
@@ -56,7 +57,7 @@ void Game::display_fps() {
 
 /* ------------------------------------------------------------------------ */
 
-std::string stupid_strings(float n, float dec) {
+std::string format_float(float n, float dec) {
   std::ostringstream s;
   s << std::fixed << std::setprecision(dec) << n;
   return s.str();
@@ -70,26 +71,29 @@ void Game::display_debug() {
   CNT += std::to_string(settings.count);
 
   std::string DMP = "DMP:\t";
-  DMP += stupid_strings(settings.damping * 100, 2) + "%";
+  DMP += format_float(settings.damping * 100, 5) + "%";
 
   std::string LEN = "LEN:\t";
-  LEN += stupid_strings(settings.length_1, 2) + ", " + stupid_strings(settings.length_2, 2);
+  LEN += format_float(settings.length_1, 2) + ", " + format_float(settings.length_2, 2);
 
   std::string MSS = "MSS:\t";
-  MSS += stupid_strings(settings.mass_1, 2) + ", " + stupid_strings(settings.mass_2, 2);
+  MSS += format_float(settings.mass_1, 2) + ", " + format_float(settings.mass_2, 2);
 
-  std::string ANG1 = "TH1:\t";
-  ANG1 += stupid_strings(settings.initial_theta_1 / M_PI, 10) + "π -> ";
-  ANG1 += stupid_strings(settings.final_theta_1 / M_PI, 10) + "π";
+  float       tdif1 = angle_difference(settings.initial_theta_1, settings.final_theta_1);
+  std::string ANG1  = "Δθ1:\t";
+  ANG1 += format_float(tdif1 * 100, 10) + "%";
 
-  std::string ANG2 = "TH2:\t";
-  ANG2 += stupid_strings(settings.initial_theta_2 / M_PI, 10) + "π -> ";
-  ANG2 += stupid_strings(settings.final_theta_2 / M_PI, 10) + "π";
+  float       tdif2 = angle_difference(settings.initial_theta_1, settings.final_theta_1);
+  std::string ANG2  = "Δθ2:\t";
+  ANG2 += format_float(tdif2 * 100, 10) + "%";
 
-  std::string DT = " ΔT:\t";
+  std::string DT = " Δt:\t";
   DT += std::to_string(GetFrameTime()) + "s";
 
-  std::array<std::string, 8> debug = {DT, ANG2, ANG1, DMP, MSS, LEN, RES, CNT};
+  std::string GRV = "  G:\t";
+  GRV += format_float(Global::gravity, 4) + "m/s2";
+
+  std::array<std::string, 9> debug = {DT, ANG2, ANG1, DMP, GRV, MSS, LEN, RES, CNT};
 
   float y = GetScreenHeight() - settings.font_size;
   for (size_t i = 0; i < debug.size(); i++) {
