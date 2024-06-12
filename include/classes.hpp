@@ -29,6 +29,12 @@ struct Config {
   Color initial_color_1, initial_color_2;
   Color final_color_1, final_color_2;
 
+  bool        show_fps, debug_mode;
+  std::string font_path;
+  float       font_size;
+  Font        font;
+
+  void init_font();
   Config();
   ~Config() = default;
 };

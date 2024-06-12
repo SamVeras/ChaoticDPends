@@ -16,6 +16,12 @@ Config::Config() {
   win_height       = config["window"]["height"].value_or(10);
   framerate        = config["window"]["framerate"].value_or(60);
   background_color = load_color(config["window"]["background"]);
+  font_path        = config["window"]["font"].value_or("romulus.png");
+  font_size        = config["window"]["font_size"].value_or(10);
+
+  // Debug settings
+  show_fps   = config["debug"]["show_fps"].value_or(false);
+  debug_mode = config["debug"]["debug_mode"].value_or(false);
 
   // General settings
   origin  = {config["pendulums"]["origin"][0].value_or(0.f),
@@ -43,6 +49,11 @@ Config::Config() {
   final_theta_1   = degrees_to_radians(final_theta_1);
   initial_theta_2 = degrees_to_radians(initial_theta_2);
   final_theta_2   = degrees_to_radians(final_theta_2);
+}
+
+void Config::init_font() {
+  font = LoadFont(font_path.c_str());
+  SetTextureFilter(font.texture, TEXTURE_FILTER_TRILINEAR);
 }
 
 /* ------------------------------------------------------------------------ */

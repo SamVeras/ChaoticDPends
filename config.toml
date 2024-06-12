@@ -1,27 +1,33 @@
 [window]
 title = "Simulação de Pêndulos"
 width = 800
-height = 600
-framerate = 60
-background = [0, 0, 50, 255]
+height = 800
+framerate = 75
+background = [0, 0, 0, 255]
+font = "res/LiberationSans-Bold.ttf"
+font_size = 18
+
+[debug]
+show_fps = true
+debug_mode = true
 
 [pendulums]
-origin = [400, 300]
-count = 5
-damping = 0.01
+origin = [400, 400]
+count = 200
+damping = 0.001
 
 [first_arm]
 length = 200
-initial_theta = 90
-final_theta = 100
+initial_theta = 180
+final_theta = 180.5
 initial_color = [255, 255, 255, 255]
 final_color = [255, 0, 0, 255]
 mass = 1
 
 [second_arm]
-length = 180
-initial_theta = 0
-final_theta = 10
+length = 200
+initial_theta = 200
+final_theta = 200.5
 initial_color = [0, 0, 255, 255]
 final_color = [0, 255, 0, 255]
 mass = 1

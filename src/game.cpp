@@ -30,11 +30,22 @@ Game::Game() {
   create_pendulums(*this, settings);
   SetConfigFlags(FLAG_MSAA_4X_HINT);
   InitWindow(settings.win_width, settings.win_height, settings.title.c_str());
+  settings.init_font();  // Não é possível inicializar a fonte antes da janela do jogo
   SetTargetFPS(settings.framerate);
 }
 
 Game::~Game() {
   CloseWindow();
+}
+
+void Game::display_fps() {
+  std::string str = "FPS: " + std::to_string(GetFPS());
+  DrawTextEx(settings.font, str.c_str(), {10, 10}, settings.font_size, 1, WHITE);
+}
+
+void Game::display_debug() {
+  DrawTextEx(settings.font, std::to_string(settings.count).c_str(), {10, 40}, settings.font_size, 1,
+             WHITE);
 }
 
 void Game::add_drawable(std::unique_ptr<Drawable> ptr) {
@@ -45,6 +56,10 @@ void Game::run() {
   while (!WindowShouldClose()) {
     BeginDrawing();
     ClearBackground(settings.background_color);
+    if (settings.show_fps)
+      display_fps();
+    if (settings.debug_mode)
+      display_debug();
     for (auto& drawable : drawables)
       drawable->update(GetFrameTime()), drawable->draw();
     EndDrawing();

@@ -12,6 +12,9 @@ class Game {
   Config                                 settings;
   std::vector<std::unique_ptr<Drawable>> drawables;
 
+  void display_fps();
+  void display_debug();
+
  public:
   void add_drawable(std::unique_ptr<Drawable> ptr);
   void run();
