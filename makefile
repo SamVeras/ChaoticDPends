@@ -42,8 +42,10 @@ runtest:
 	$(TESTAPP)
 
 clean:
-	find $(TARGET_DIR) -type f -executable -exec rm {} \;
-	rm -rf $(BUILD_DIR)/$(OBJEXT)
+	@echo "Removendo executáveis de $(TARGET_DIR)..."
+	@find $(TARGET_DIR) -type f -executable -exec rm -fv {} \;
+	@echo "Removendo objetos de $(BUILD_DIR)..."
+	@rm -rfv $(BUILD_DIR)/*$(OBJEXT)
 
 rebuild: clean $(TARGET)
 	$(MAKE)
