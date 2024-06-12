@@ -4,6 +4,8 @@
 #include "functions.hpp"
 #include "raylib.h"
 
+/* ---------------- Função inacessível por outros arquivos ---------------- */
+// Adicionar pêndulos conforme as configurações
 void create_pendulums(Game& game, const Config& settings) {
   for (size_t i = 0; i < settings.count; i++) {
     float   p, t1, t2, m1, m2, l1, l2, d;
@@ -26,6 +28,11 @@ void create_pendulums(Game& game, const Config& settings) {
   }
 }
 
+/* ------------------------------------------------------------------------ */
+/*                                Game class                                */
+/* ------------------------------------------------------------------------ */
+/* ------------------------------ Construtor ------------------------------ */
+
 Game::Game() {
   create_pendulums(*this, settings);
   SetConfigFlags(FLAG_MSAA_4X_HINT);
@@ -34,23 +41,33 @@ Game::Game() {
   SetTargetFPS(settings.framerate);
 }
 
+/* ------------------------------- Destrutor ------------------------------ */
+
 Game::~Game() {
   CloseWindow();
 }
+
+/* -------------------------------- Métodos ------------------------------- */
 
 void Game::display_fps() {
   std::string str = "FPS: " + std::to_string(GetFPS());
   DrawTextEx(settings.font, str.c_str(), {10, 10}, settings.font_size, 1, WHITE);
 }
 
+/* ------------------------------------------------------------------------ */
+
 void Game::display_debug() {
   DrawTextEx(settings.font, std::to_string(settings.count).c_str(), {10, 40}, settings.font_size, 1,
              WHITE);
 }
 
+/* ------------------------------------------------------------------------ */
+
 void Game::add_drawable(std::unique_ptr<Drawable> ptr) {
   drawables.push_back(std::move(ptr));
 }
+
+/* ------------------------------------------------------------------------ */
 
 void Game::run() {
   while (!WindowShouldClose()) {
@@ -65,3 +82,5 @@ void Game::run() {
     EndDrawing();
   }
 }
+
+/* ------------------------------------------------------------------------ */
