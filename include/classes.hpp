@@ -11,6 +11,8 @@ struct PendulumArm {
   Color color;
 };
 
+/* ------------------------------------------------------------------------ */
+
 struct Config {
   std::string title;
   size_t      win_width, win_height, framerate;

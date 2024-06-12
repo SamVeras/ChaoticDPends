@@ -7,6 +7,12 @@ framerate = 60
 [colors]
 background = [0, 0, 50, 255]
 
+
 [pendulums]
+origin = [400, 300]
+lengths = [200, 200]
+initial_angles = [0, 0] # Em graus
+final_angles = [0, 0]   # Em graus
+masses = [1, 1]
 count = 5
-damping = 0.99
+damping = 0.01
