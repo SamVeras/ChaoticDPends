@@ -13,7 +13,6 @@ class Game {
   std::vector<std::unique_ptr<Drawable>> drawables;
 
  public:
-  void add_drawable(std::unique_ptr<Drawable> ptr);
   void run();
   Game();
   ~Game();

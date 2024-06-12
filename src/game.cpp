@@ -5,7 +5,7 @@
 
 Game::Game() {
   SetConfigFlags(FLAG_MSAA_4X_HINT);
-  InitWindow(settings.win_width, settings.win_height, "settings.title.c_str()");
+  InitWindow(settings.win_width, settings.win_height, settings.title.c_str());
   SetTargetFPS(settings.framerate);
 }
 
@@ -21,8 +21,4 @@ void Game::run() {
       drawable->update(GetFrameTime()), drawable->draw();
     EndDrawing();
   }
-}
-
-void Game::add_drawable(std::unique_ptr<Drawable> ptr) {
-  drawables.push_back(std::move(ptr));
 }
