@@ -93,5 +93,5 @@ void DoublePendulum::draw() const {
 
   DrawLineV(origin, {x1, y1}, arm1.color);
   DrawLineV({x1, y1}, {x2, y2}, arm2.color);
-  DrawCircleV({x2, y2}, arm2.mass * 2, arm2.color);
+  // DrawCircleV({x2, y2}, arm2.mass, arm2.color);
 }
