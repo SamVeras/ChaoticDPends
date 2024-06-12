@@ -3,8 +3,8 @@
 #include "classes.hpp"
 
 Color load_color(const toml::v3::node_view<toml::v3::node>& node) {
-  return {(unsigned char)node[0].value_or(0), (unsigned char)node[1].value_or(0),
-          (unsigned char)node[2].value_or(0), (unsigned char)node[3].value_or(255)};
+  return {(unsigned char)node[0].value_or(255), (unsigned char)node[1].value_or(0),
+          (unsigned char)node[2].value_or(255), (unsigned char)node[3].value_or(255)};
 }
 
 Config::Config() {
@@ -17,8 +17,6 @@ Config::Config() {
   framerate  = config["window"]["framerate"].value_or(60);
 
   // Colors
-  background_color = {255, 255, 255, 255};
-
   background_color = load_color(config["colors"]["background"]);
 
   // Pendulum settings
