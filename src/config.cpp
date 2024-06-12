@@ -16,7 +16,7 @@ Config::Config() {
   win_height       = config["window"]["height"].value_or(10);
   framerate        = config["window"]["framerate"].value_or(60);
   background_color = load_color(config["window"]["background"]);
-  font_path        = config["window"]["font"].value_or("romulus.png");
+  font_path        = config["window"]["font"].value_or("res/romulus.png");
   font_size        = config["window"]["font_size"].value_or(10);
 
   // Debug settings
@@ -45,6 +45,7 @@ Config::Config() {
   initial_color_2 = load_color(config["second_arm"]["initial_color"]);
   final_color_2   = load_color(config["second_arm"]["final_color"]);
 
+  // Conversão
   initial_theta_1 = degrees_to_radians(initial_theta_1);
   final_theta_1   = degrees_to_radians(final_theta_1);
   initial_theta_2 = degrees_to_radians(initial_theta_2);
