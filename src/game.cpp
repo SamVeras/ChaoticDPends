@@ -1,8 +1,5 @@
 #include "game.hpp"
-#include <cmath>
-#include "classes.hpp"
 #include "functions.hpp"
-#include "raylib.h"
 
 /* ---------------- Função inacessível por outros arquivos ---------------- */
 // Adicionar pêndulos conforme as configurações

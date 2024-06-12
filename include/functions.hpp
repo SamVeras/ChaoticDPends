@@ -1,5 +1,6 @@
+#pragma once
+#include <raylib.h>
 #include <toml++/toml.hpp>
-#include "raylib.h"
 
 /* ------------------------------------------------------------------------ */
 /*                              Funções helpers                             */

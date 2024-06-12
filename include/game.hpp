@@ -1,8 +1,8 @@
 #pragma once
 #include <memory>
-#include <toml++/toml.hpp>
 #include <vector>
 #include "classes.hpp"
+#include "config.hpp"
 
 /* ------------------------------------------------------------------------ */
 /*                                Game class                                */

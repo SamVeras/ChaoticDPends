@@ -1,6 +1,5 @@
-#include <iostream>
+#include "config.hpp"
 #include <toml++/toml.hpp>
-#include "classes.hpp"
 #include "functions.hpp"
 
 /* ------------------------------------------------------------------------ */
