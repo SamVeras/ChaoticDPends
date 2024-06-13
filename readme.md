@@ -63,6 +63,33 @@ fatores que afetam a perda de energia do sistema.
 
 ## Estrutura de arquivos
 
+```
+.
+├──/aux                  # Arquivos auxiliares (temporários, logs, etc.)
+├──/bin                  # Binários compilados
+├──/build                # Arquivos de build
+├──/include              # Arquivos de cabeçalho (declarações)
+│   ├──/toml++           # Biblioteca toml++
+│   │   └── toml.hpp
+│   ├── classes.hpp      # Classes usadas no projeto
+│   ├── config.hpp       # Classe de configuração
+│   ├── functions.hpp    # Funções auxiliares
+│   ├── game.hpp         # Classe principal do jogo
+│   └── global.hpp       # Variáveis e constantes globais
+├──/res                  # Recursos (fontes, imagens, etc.)
+├──/src                  # Arquivos-fonte (implementações)
+│   ├── config.cpp
+│   ├── functions.cpp
+│   ├── game.cpp
+│   ├── main.cpp
+│   └── pendulums.cpp    # Implementação das classes de pêndulos
+├──/test                 # Testes
+├── config.toml          # Arquivo de configuração inicial
+├── makefile
+└── readme.md
+
+```
+
 ## Diagrama de classes
 
 ```mermaid
