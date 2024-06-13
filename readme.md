@@ -1,7 +1,5 @@
 # Simulador de Pêndulos Duplos Caóticos
 
-![](/aux/test.gif)
-
 ### Índice
 
 - [Descrição](#descrição)
