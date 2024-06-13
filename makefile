@@ -35,8 +35,8 @@ $(BUILD_DIR)/%$(OBJEXT): $(SOURCES_DIR)/%$(SRCEXT)
 run: $(TARGET)
 	$(TARGET)
 
-test:
-	$(CXX) $(FLAGS) -o $(TESTAPP) $(TESTS) $(LIBS)
+test: $(OBJS)
+	$(CXX) $(FLAGS) -o $(TESTAPP) $(filter-out $(BUILD_DIR)/main$(OBJEXT),$(OBJS)) $(TESTS) $(LIBS)
 
 runtest:
 	$(TESTAPP)
