@@ -23,3 +23,9 @@ Color color_interpolation(const Color& from, const Color& to, float p);
 /* ------------------------------------------------------------------------ */
 
 float angle_difference(float from, float to);
+
+/* ------------------------------------------------------------------------ */
+
+std::string format_float(float n, float dec);
+
+/* ------------------------------------------------------------------------ */

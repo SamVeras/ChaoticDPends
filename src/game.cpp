@@ -1,7 +1,5 @@
 #include "game.hpp"
 #include <array>
-#include <iomanip>
-#include <sstream>
 #include "functions.hpp"
 #include "global.hpp"
 
@@ -57,12 +55,7 @@ void Game::display_fps() {
 
 /* ------------------------------------------------------------------------ */
 
-std::string format_float(float n, float dec) {
-  std::ostringstream s;
-  s << std::fixed << std::setprecision(dec) << n;
-  return s.str();
-}
-
+// Mostrar as configurações
 void Game::display_debug() {
   using str = std::string;
   using std::to_string;

@@ -1,4 +1,6 @@
 #include "functions.hpp"
+#include <iomanip>
+#include <sstream>
 
 /* ------------------------------------------------------------------------ */
 /*                                  Funções                                 */
@@ -46,3 +48,14 @@ Color color_interpolation(const Color& from, const Color& to, float p) {
 float angle_difference(float from, float to) {
   return (to - from) / from;
 }
+
+/* ------------------------------------------------------------------------ */
+
+// Formata um float para um número de casas decimais
+std::string format_float(float n, float dec) {
+  std::ostringstream s;
+  s << std::fixed << std::setprecision(dec) << n;
+  return s.str();
+}
+
+/* ------------------------------------------------------------------------ */
