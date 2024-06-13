@@ -105,25 +105,13 @@ $\theta_1'$ e $\theta_2'$ então são as velocidades angulares e $\theta_1'' \cd
 considerando a diferença de tempo entre cada frame.
 
 $$
-
-\theta_1'' = \frac {
- -g (2 \cdot m_1 + m_2) \sin{\theta_1} - m_2 \cdot g \cdot \sin{(\theta_1 - 2 \cdot \theta_2)}
- - 2 \sin{(\theta_1 - \theta_2) \cdot m_2 \cdot (\theta_2'^2 \cdot L_2 + \theta_1'^2 \cdot L_1
- \cos{(\theta_1 - \theta_2)})}
-}
-{
-  L1 \cdot (2 \cdot m_1 + m_2 - m_2 \cdot \cos{(2 \cdot \theta_1 - 2 \cdot \theta_2)})
-}
+\theta_1'' = \frac {-g (2 \cdot m_1 + m_2) \sin{\theta_1} - m_2 \cdot g \cdot \sin{(\theta_1 - 2 \cdot \theta_2)} - 2 \sin{(\theta_1 - \theta_2) \cdot m_2 \cdot (\theta_2'^2 \cdot L_2 + \theta_1'^2 \cdot L_1 \cos{(\theta_1 - \theta_2)})}}
+{L1 \cdot (2 \cdot m_1 + m_2 - m_2 \cdot \cos{(2 \cdot \theta_1 - 2 \cdot \theta_2)})}
 $$
 
 $$
-\theta_2'' = \frac {
-  2 \cdot \sin{\theta_1 - \theta_2}(\theta_1'^2 \cdot L_1 (m_1 + m_2) + g \cdot (m_1 + m_2)
-  \cdot \cos{\theta_1} + \theta_2'^2 \cdot L_2 \cdot m_2 \cdot \cos{(\theta_1 - \theta_2)})
-}
-{
-  L2 \cdot (2 \cdot m_1 + m_2 - m_2 \cdot \cos{(2 \cdot \theta_1 - 2 \cdot \theta_2)})
-}
+\theta_2'' = \frac {2 \cdot \sin{\theta_1 - \theta_2}(\theta_1'^2 \cdot L_1 (m_1 + m_2) + g \cdot (m_1 + m_2) \cdot \cos{\theta_1} + \theta_2'^2 \cdot L_2 \cdot m_2 \cdot \cos{(\theta_1 - \theta_2)})}
+{L2 \cdot (2 \cdot m_1 + m_2 - m_2 \cdot \cos{(2 \cdot \theta_1 - 2 \cdot \theta_2)})}
 $$
 
 Essa fórmula é derivada da equação de movimento de um pêndulo duplo. Tal equação
