@@ -198,7 +198,6 @@ classDiagram
 
   class `toml++` {
       <<Biblioteca>>
-      <!-- +parse(std::string file_path) -->
   }
 
   class raylib {
