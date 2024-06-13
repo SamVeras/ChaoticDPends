@@ -1,5 +1,17 @@
 # Simulador de Pêndulos Duplos Caóticos
 
+### Índice
+
+- [Descrição](#descrição)
+- [Funcionalidade](#funcionalidade)
+- [Requisitos](#requisitos)
+- [Compilação](#compilação)
+- [Estrutura de arquivos](#estrutura-de-arquivos)
+- [Diagrama de classes](#diagrama-de-classes)
+- [Configurando os parâmetros da simulação](#configurando-os-parâmetros-da-simulação)
+- [Continhas](#continhas)
+- [Créditos e Atribuições](#créditos-e-atribuições)
+
 ## Descrição
 
 Apesar da aparente simplicidade do pêndulo duplo[^1][^2], sua trajetória é
@@ -18,6 +30,22 @@ fatores que afetam a perda de energia do sistema.
 - Simular milhares de pêndulos duplos com condições iniciais personalizáveis.
 - Visualização gráfica do movimento dos pêndulos.
 - Analisar e comparar trajetórias ao correr do tempo
+
+## Instruções de Uso
+
+### Drag & Drop
+
+- É possível carregar diferentes configurações do programa **arrastando e soltando**
+  um arquivo `.toml` com configurações relevantes para a janela do programa.
+
+### Teclas de Atalho
+
+- `ESC`ou `Q`: Fechar o programa
+- `P`: Pausar a simulação
+- `R`: Reiniciar a simulação
+- `F1` ou `F`: Mostrar a taxa de quadros por segundo
+- `F2` ou `D`: Mostrar informação de depuração
+- `F3`ou `T`: Mostrar o contador de tempo da simulação
 
 ## Requisitos
 
@@ -81,8 +109,10 @@ classDiagram
   class Game {
       -Config settings
       -std::vector<std::unique_ptr<Drawable>> drawables
+      -double timer
       -void display_fps()
       -void display_debug()
+      -void display_timer()
       -void reset()
       +void add_drawable(std::unique_ptr<Drawable> ptr)
       +void input()
@@ -186,10 +216,12 @@ font_size = 18
 
 ```toml
 [debug]
+show_timer = true
 show_fps = true
 debug_mode = false
 ```
 
+- `show_timer`: Ligar ou desligar o timer de simulação
 - `show_fps`: Ligar ou desligar o contador de frames
 - `debug_mode`: Ligar ou desligar as informações de depuração
 
