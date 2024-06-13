@@ -99,6 +99,7 @@ de pêndulos._
 ## Diagrama de classes
 
 ```mermaid
+%%{init: {'theme': 'neutral' } }%%
 classDiagram
   class Drawable {
       <<Abstract>>
