@@ -8,6 +8,7 @@ font = "res/LiberationMono-Bold.ttf"
 font_size = 18
 
 [debug]
+show_timer = true
 show_fps = false
 debug_mode = false
 

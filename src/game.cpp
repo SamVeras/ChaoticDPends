@@ -34,7 +34,7 @@ void create_pendulums(Game& game, const Config& settings) {
 
 /* ------------------------------ Construtor ------------------------------ */
 
-Game::Game() : settings("config.toml") {
+Game::Game() : settings("config.toml"), timer(0) {
   create_pendulums(*this, settings);
 
   SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_MSAA_4X_HINT);
@@ -117,6 +117,24 @@ void Game::display_debug() {
   }
 }
 
+/* ------------------------------------------------------------------------ */
+
+// Mostrar o timer
+void Game::display_timer() {
+  std::string str;
+  if (settings.paused)
+    str += "PAUSADO ";
+  str += "t = " + format_float(timer, 2) + "s";
+  Color c = invert_color(settings.background_color);
+
+  float x = GetScreenWidth() - MeasureTextEx(settings.font, str.c_str(), settings.font_size, 1).x;
+  float y = GetScreenHeight() - settings.font_size;
+
+  DrawTextEx(settings.font, str.c_str(), {x, y}, settings.font_size, 1, c);
+}
+
+/* ------------------------------------------------------------------------ */
+
 // Reiniciar o jogo
 void Game::reset() {
   drawables.clear();
@@ -125,6 +143,7 @@ void Game::reset() {
   SetWindowSize(settings.win_width, settings.win_height);
   SetWindowTitle(settings.title.c_str());
   SetTargetFPS(settings.framerate);
+  timer = 0;
 }
 
 /* ------------------------------------------------------------------------ */
@@ -185,6 +204,12 @@ void Game::run() {
 
     if (settings.debug_mode)
       display_debug();
+
+    if (!settings.paused)
+      timer += GetFrameTime();
+
+    if (settings.show_timer)
+      display_timer();
 
     this->input();
 

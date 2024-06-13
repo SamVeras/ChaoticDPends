@@ -12,9 +12,11 @@ class Game {
  private:
   Config                                 settings;
   std::vector<std::unique_ptr<Drawable>> drawables;
+  double                                 timer;
 
   void display_fps();
   void display_debug();
+  void display_timer();
   void reset();
 
  public:
