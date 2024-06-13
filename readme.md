@@ -36,7 +36,7 @@ fatores que afetam a perda de energia do sistema.
 ## Diagrama de classes
 
 ```mermaid
-%%{init: {'theme': 'dark' } }%%
+%%{init: {'theme': 'neutral' } }%%
 classDiagram
   class Drawable {
       <<Abstract>>
