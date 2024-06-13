@@ -29,6 +29,8 @@ fatores que afetam a perda de energia do sistema.
 - Biblioteca [raylib](https://www.raylib.com) para visualização
 - make para build
 
+## Estrutura de arquivos
+
 ## Configurando os parâmetros da simulação
 
 No arquivo `config.toml`:
@@ -73,7 +75,7 @@ damping = 0.001
 - `damping`: Variável que controla a diminuição da energia do sistema
 
 ```toml
-[xxxxx_arm]
+[first_arm] # ou [second_arm]
 length = 200
 initial_theta = 180
 final_theta = 180.5
@@ -94,7 +96,13 @@ inicial e o $\theta$ final. \
 As cores também serão interpoladas para cada braço, em proporção ao número total
 de pêndulos._
 
----
+## Diagrama de classes
+
+```mermaid
+
+```
+
+## Continhas
 
 Sejam $\theta_1$ e $\theta_2$ os ângulos dos pêndulos relativos ao eixo $y$,
 $L_1$ e $L_2$ os comprimentos dos braços dos pêndulos e $m_1$ e $m_2$ as massas
@@ -105,13 +113,18 @@ $\theta_1'$ e $\theta_2'$ então são as velocidades angulares e $\theta_1'' \cd
 considerando a diferença de tempo entre cada frame.
 
 $$
-\theta_1'' = \frac {-g (2 \cdot m_1 + m_2) \sin{\theta_1} - m_2 \cdot g \cdot \sin{(\theta_1 - 2 \cdot \theta_2)} - 2 \sin{(\theta_1 - \theta_2) \cdot m_2 \cdot (\theta_2'^2 \cdot L_2 + \theta_1'^2 \cdot L_1 \cos{(\theta_1 - \theta_2)})}}
-{L1 \cdot (2 \cdot m_1 + m_2 - m_2 \cdot \cos{(2 \cdot \theta_1 - 2 \cdot \theta_2)})}
+\theta_1'' = \frac {-g (2 \cdot m_1 + m_2) \sin{\theta_1} - m_2 \cdot g \cdot
+\sin{(\theta_1 - 2 \cdot \theta_2)} - 2 \sin{(\theta_1 - \theta_2) \cdot m_2
+\cdot (\theta_2'^2 \cdot L_2 + \theta_1'^2 \cdot L_1 \cos{(\theta_1 -
+\theta_2)})}} {L1 \cdot (2 \cdot m_1 + m_2 - m_2 \cdot \cos{(2 \cdot \theta_1 -
+2 \cdot \theta_2)})}
 $$
 
 $$
-\theta_2'' = \frac {2 \cdot \sin{\theta_1 - \theta_2}(\theta_1'^2 \cdot L_1 (m_1 + m_2) + g \cdot (m_1 + m_2) \cdot \cos{\theta_1} + \theta_2'^2 \cdot L_2 \cdot m_2 \cdot \cos{(\theta_1 - \theta_2)})}
-{L2 \cdot (2 \cdot m_1 + m_2 - m_2 \cdot \cos{(2 \cdot \theta_1 - 2 \cdot \theta_2)})}
+\theta_2'' = \frac {2 \cdot \sin{\theta_1 - \theta_2}(\theta_1'^2 \cdot L_1
+(m_1 + m_2) + g \cdot (m_1 + m_2) \cdot \cos{\theta_1} + \theta_2'^2 \cdot L_2
+\cdot m_2 \cdot \cos{(\theta_1 - \theta_2)})} {L2 \cdot (2 \cdot m_1 + m_2 - m_2
+\cdot \cos{(2 \cdot \theta_1 - 2 \cdot \theta_2)})}
 $$
 
 Essa fórmula é derivada da equação de movimento de um pêndulo duplo. Tal equação
@@ -121,7 +134,7 @@ internet.[^4][^5][^6]
 ## Créditos e Atribuições
 
 - ROMULUS FONT projetada por Hewett Tsoi.
-- Liberation:tm: Fonts projetadas por Red Hat.
+- Liberation :tm: Fonts projetadas por Red Hat.
 - Contribuidores da biblioteca Raylib.
 
 [^1]: Um pêndulo duplo consiste em dois pêndulos conectados de ponta a ponta.
