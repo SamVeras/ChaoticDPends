@@ -8,18 +8,19 @@ font = "res/romulus.png"
 font_size = 16
 
 [debug]
+show_timer = true
 show_fps = true
 debug_mode = true
 
 [pendulums]
 origin = [250, 250]
 count = 200
-damping = 0.001
+damping = 0
 
 [first_arm]
-length = 100
-initial_theta = 90
-final_theta = 90.5
+length = 150
+initial_theta = 130
+final_theta = 130.5
 initial_color = [0, 0, 255, 255]
 final_color = [255, 0, 0, 255]
 mass = 1
