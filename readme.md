@@ -182,13 +182,27 @@ classDiagram
       +~Config()
   }
 
-  class HelperFunctions {
+  class Funções {
       +Color load_color(const toml::v3::node_view<toml::v3::node>& node)
       +float degrees_to_radians(float angle)
       +float radians_to_degrees(float radians)
       +float angle_interpolation(float from, float to, float p)
       +Color color_interpolation(const Color& from, const Color& to, float p)
       +float angle_difference(float from, float to)
+  }
+
+  class `config.toml` {
+      <<Arquivo>>
+    ++ Configurações
+  }
+
+  class `toml++` {
+      <<Biblioteca>>
+      +parse(std::string file_path)
+  }
+
+  class raylib {
+      <<Biblioteca>>
   }
 
   Drawable <|-- Pendulum
@@ -198,6 +212,12 @@ classDiagram
   DoublePendulum "1" *-- "2" PendulumArm
   Game "1" *-- "many" Drawable
   Game "1" *-- "1" Config
+  Config "carrega" *-- `config.toml`
+  Config "utiliza" <.. `toml++`
+  Funções "utiliza" <.. `toml++`
+  Funções "utiliza" <.. raylib
+  SimplePendulum "utiliza" <.. raylib
+  DoublePendulum "utiliza" <.. raylib
 ```
 
 ## Continhas
