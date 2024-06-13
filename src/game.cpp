@@ -68,42 +68,49 @@ void Game::display_debug() {
   using str = std::string;
   using std::to_string;
 
-  str CNT = "Contagem:\t\t\t";
-  CNT += to_string(settings.count);
+  const str CNT_t  = "Contagem:";
+  const str RES_t  = "Resolucao:";
+  const str DT_t   = "Delta-tempo:";
+  const str LEN_t  = "Tamanhos:";
+  const str MSS_t  = "Massas:";
+  const str GRV_t  = "Gravidade:";
+  const str DMP_t  = "Damping:";
+  const str ANG1_t = "Dif. inicial 1:";
+  const str ANG2_t = "Dif. inicial 2:";
 
-  str RES = "Resolução:\t\t";
-  RES += to_string(GetScreenWidth()) + "x" + to_string(GetScreenHeight());
-
-  str DT = "Delta-time:\t";
-  DT += to_string(GetFrameTime()) + "s";
-
-  str LEN = "Tamanhos:\t\t\t";
-  LEN += format_float(settings.length_1, 2) + ", " + format_float(settings.length_2, 2);
-
-  str MSS = "Massas:\t\t\t\t\t";
-  MSS += format_float(settings.mass_1, 2) + ", " + format_float(settings.mass_2, 2);
-
-  str GRV = "Gravidade:\t\t";
-  GRV += format_float(Global::gravity, 4) + "m/s2";
-
-  str DMP = "Damping:\t\t\t\t";
-  DMP += format_float(settings.damping * 100, 5) + "%";
-
-  str   ANG1  = "Δ inicial θ1:\t";
   float tdif1 = angle_difference(settings.initial_theta_1, settings.final_theta_1);
-  ANG1 += format_float(tdif1 * 100, 10) + "%";
-
-  str   ANG2  = "Δ inicial θ2:\t";
   float tdif2 = angle_difference(settings.initial_theta_1, settings.final_theta_1);
-  ANG2 += format_float(tdif2 * 100, 10) + "%";
 
-  std::array<str, 9> debug = {ANG2, ANG1, DMP, GRV, MSS, LEN, DT, RES, CNT};
+  const str CNT  = to_string(settings.count);
+  const str RES  = to_string(GetScreenWidth()) + "x" + to_string(GetScreenHeight());
+  const str DT   = format_float(GetFrameTime() * 1000, 2) + "ms";
+  const str LEN  = format_float(settings.length_1, 2) + ", " + format_float(settings.length_2, 2);
+  const str MSS  = format_float(settings.mass_1, 2) + ", " + format_float(settings.mass_2, 2);
+  const str GRV  = format_float(Global::gravity, 4) + "m/s^2";
+  const str DMP  = format_float(settings.damping * 100, 5) + "%";
+  const str ANG1 = format_float(tdif1 * 100, 10) + "%";
+  const str ANG2 = format_float(tdif2 * 100, 10) + "%";
+
+  std::array<str, 9> title = {CNT_t, RES_t, DT_t, LEN_t, MSS_t, GRV_t, DMP_t, ANG1_t, ANG2_t};
+  std::array<str, 9> debug = {CNT, RES, DT, LEN, MSS, GRV, DMP, ANG1, ANG2};
+
+  float max_title_width = 0;
+  for (const auto& t : title) {
+    float width = MeasureTextEx(settings.font, t.c_str(), settings.font_size, 1).x;
+    if (width > max_title_width) {
+      max_title_width = width;
+    }
+  }
 
   float y = GetScreenHeight() - settings.font_size;
   Color c = invert_color(settings.background_color);
-  for (size_t i = 0; i < debug.size(); i++) {
-    str S = debug[i];
-    DrawTextEx(settings.font, S.c_str(), {0, y - i * settings.font_size}, settings.font_size, 1, c);
+
+  for (size_t i = debug.size(); i-- > 0;) {
+    str     S   = title[i] + " " + debug[i];
+    Vector2 pos = {0, y - i * settings.font_size};
+    DrawTextEx(settings.font, title[i].c_str(), pos, settings.font_size, 1, c);
+    pos.x += max_title_width + 10;
+    DrawTextEx(settings.font, debug[i].c_str(), pos, settings.font_size, 1, c);
   }
 }
 
