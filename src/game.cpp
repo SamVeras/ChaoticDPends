@@ -4,6 +4,7 @@
 #include "global.hpp"
 
 /* ---------------- Função inacessível por outros arquivos ---------------- */
+
 // Adicionar pêndulos conforme as configurações
 void create_pendulums(Game& game, const Config& settings) {
   for (size_t i = 0; i < settings.count; i++) {
@@ -30,14 +31,19 @@ void create_pendulums(Game& game, const Config& settings) {
 /* ------------------------------------------------------------------------ */
 /*                                Game class                                */
 /* ------------------------------------------------------------------------ */
+
 /* ------------------------------ Construtor ------------------------------ */
 
 Game::Game() {
   create_pendulums(*this, settings);
+
   SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_MSAA_4X_HINT);
   InitWindow(settings.win_width, settings.win_height, settings.title.c_str());
+
   settings.init_font();  // Não é possível inicializar a fonte antes da janela do jogo
+
   SetTargetFPS(settings.framerate);
+  SetExitKey(KEY_NULL);
 }
 
 /* ------------------------------- Destrutor ------------------------------ */
@@ -48,6 +54,7 @@ Game::~Game() {
 
 /* -------------------------------- Métodos ------------------------------- */
 
+// Mostrar o FPS
 void Game::display_fps() {
   std::string str = "FPS: " + std::to_string(GetFPS());
   DrawTextEx(settings.font, str.c_str(), {0, 0}, settings.font_size, 1, WHITE);
@@ -99,22 +106,54 @@ void Game::display_debug() {
   }
 }
 
+// Reiniciar o jogo
+void Game::reset() {
+  drawables.clear();
+  create_pendulums(*this, settings);
+}
+
 /* ------------------------------------------------------------------------ */
 
+// Adicionar um objeto desenhável
 void Game::add_drawable(std::unique_ptr<Drawable> ptr) {
   drawables.push_back(std::move(ptr));
 }
 
 /* ------------------------------------------------------------------------ */
 
+// Interpretar entrada do usuário
+void Game::input() {
+  if (IsKeyPressed(KEY_ESCAPE) | IsKeyPressed(KEY_Q))
+    CloseWindow();
+
+  if (IsKeyPressed(KEY_P))
+    settings.paused = !settings.paused;
+
+  if (IsKeyPressed(KEY_F1))
+    settings.debug_mode = !settings.debug_mode;
+
+  if (IsKeyPressed(KEY_F2))
+    settings.show_fps = !settings.show_fps;
+
+  if (IsKeyPressed(KEY_R))
+    reset();
+}
+
+/* ------------------------------------------------------------------------ */
+
+// Executar o jogo
 void Game::run() {
   while (!WindowShouldClose()) {
     BeginDrawing();
     ClearBackground(settings.background_color);
+
     if (settings.show_fps)
       display_fps();
+
     if (settings.debug_mode)
       display_debug();
+
+    this->input();
 
     for (auto& drawable : drawables) {
       if (!settings.paused)

@@ -15,9 +15,11 @@ class Game {
 
   void display_fps();
   void display_debug();
+  void reset();
 
  public:
   void add_drawable(std::unique_ptr<Drawable> ptr);
+  void input();
   void run();
 
   Game();
