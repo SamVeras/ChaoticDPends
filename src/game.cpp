@@ -58,7 +58,8 @@ Game::~Game() {
 void Game::display_fps() {
   std::string str = "FPS: " + std::to_string(GetFPS());
   Color       c   = invert_color(settings.background_color);
-  DrawTextEx(settings.font, str.c_str(), {0, 0}, settings.font_size, 1, c);
+  float       pad = 10;
+  DrawTextEx(settings.font, str.c_str(), {pad, pad}, settings.font_size, 1, c);
 }
 
 /* ------------------------------------------------------------------------ */
@@ -75,11 +76,6 @@ void Game::display_debug() {
   const str MSS_t = "Massas:";
   const str GRV_t = "Gravidade:";
   const str DMP_t = "Damping:";
-  // const str ANG1_t = "Dif. inicial 1:";
-  // const str ANG2_t = "Dif. inicial 2:";
-
-  // float tdif1 = angle_difference(settings.initial_theta_1, settings.final_theta_1);
-  // float tdif2 = angle_difference(settings.initial_theta_1, settings.final_theta_1);
 
   const str CNT = to_string(settings.count);
   const str RES = to_string(GetScreenWidth()) + "x" + to_string(GetScreenHeight());
@@ -88,11 +84,7 @@ void Game::display_debug() {
   const str MSS = format_float(settings.mass_1, 2) + ", " + format_float(settings.mass_2, 2);
   const str GRV = format_float(Global::gravity, 4) + "m/s^2";
   const str DMP = format_float(settings.damping * 100, 5) + "%";
-  // const str ANG1 = format_float(tdif1 * 100, 10) + "%";
-  // const str ANG2 = format_float(tdif2 * 100, 10) + "%";
 
-  // std::array<str, 9> title = {CNT_t, RES_t, DT_t, LEN_t, MSS_t, GRV_t, DMP_t, ANG1_t, ANG2_t};
-  // std::array<str, 9> debug = {CNT, RES, DT, LEN, MSS, GRV, DMP, ANG1, ANG2};
   std::array<str, 7> title = {CNT_t, RES_t, DT_t, LEN_t, MSS_t, GRV_t, DMP_t};
   std::array<str, 7> debug = {CNT, RES, DT, LEN, MSS, GRV, DMP};
 
@@ -104,14 +96,19 @@ void Game::display_debug() {
     }
   }
 
-  float y = GetScreenHeight() - settings.font_size;
-  Color c = invert_color(settings.background_color);
+  float y   = GetScreenHeight() - settings.font_size;
+  Color c   = invert_color(settings.background_color);
+  float pad = 10;
+
+  y -= pad;
 
   for (size_t i = debug.size() - 1; i < debug.size(); i--) {
     size_t  n   = debug.size() - i - 1;
     str     S   = title[n] + " " + debug[n];
-    Vector2 pos = {0, y - i * settings.font_size};
+    Vector2 pos = {pad, y - i * settings.font_size};
+
     DrawTextEx(settings.font, title[n].c_str(), pos, settings.font_size, 1, c);
+
     pos.x += max_title_width + 10;
     DrawTextEx(settings.font, debug[n].c_str(), pos, settings.font_size, 1, c);
   }
@@ -125,10 +122,14 @@ void Game::display_timer() {
   if (settings.paused)
     str += "PAUSADO ";
   str += "t = " + format_float(timer, 2) + "s";
-  Color c = invert_color(settings.background_color);
+  Color c   = invert_color(settings.background_color);
+  float pad = 10;
 
   float x = GetScreenWidth() - MeasureTextEx(settings.font, str.c_str(), settings.font_size, 1).x;
   float y = GetScreenHeight() - settings.font_size;
+
+  x -= pad;
+  y -= pad;
 
   DrawTextEx(settings.font, str.c_str(), {x, y}, settings.font_size, 1, c);
 }
