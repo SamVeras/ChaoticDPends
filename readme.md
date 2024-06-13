@@ -205,19 +205,19 @@ classDiagram
       <<Biblioteca>>
   }
 
-  Drawable <|-- Pendulum
-  Pendulum <|-- SimplePendulum
-  Pendulum <|-- DoublePendulum
-  SimplePendulum "1" *-- "1" PendulumArm
-  DoublePendulum "1" *-- "2" PendulumArm
-  Game "1" *-- "many" Drawable
-  Game "1" *-- "1" Config
-  Config "carrega" *-- `config.toml`
-  Config "utiliza" <.. `toml++`
-  Funções "utiliza" <.. `toml++`
-  Funções "utiliza" <.. raylib
-  SimplePendulum "utiliza" <.. raylib
-  DoublePendulum "utiliza" <.. raylib
+  Drawable        <|-- Pendulum
+  Pendulum        <|-- SimplePendulum
+  Pendulum        <|-- DoublePendulum
+  SimplePendulum  *-- "1" PendulumArm
+  DoublePendulum  *-- "2" PendulumArm
+  Game            *-- "many" Drawable
+  Game            *-- "1" Config
+  Config          *-- `config.toml` : Carrega
+  Config          <.. `toml++` : Utiliza
+  Funções         <.. `toml++` : Utiliza
+  Funções         <.. raylib : Utiliza
+  SimplePendulum  <.. raylib : Utiliza
+  DoublePendulum  <.. raylib : Utiliza
 ```
 
 ## Continhas
