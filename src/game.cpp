@@ -152,10 +152,10 @@ void Game::input() {
   if (IsKeyPressed(KEY_P))
     settings.paused = !settings.paused;
 
-  if (IsKeyPressed(KEY_F1))
+  if (IsKeyPressed(KEY_F1) | IsKeyPressed(KEY_D))
     settings.debug_mode = !settings.debug_mode;
 
-  if (IsKeyPressed(KEY_F2))
+  if (IsKeyPressed(KEY_F2) | IsKeyPressed(KEY_F))
     settings.show_fps = !settings.show_fps;
 
   if (IsKeyPressed(KEY_R))
