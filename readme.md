@@ -4,7 +4,7 @@
 
 - [Descrição](#descrição)
 - [Funcionalidade](#funcionalidade)
-- [Requisitos](#requisitos)
+- [Instruções de Uso](#instruções-de-uso)
 - [Compilação](#compilação)
 - [Estrutura de arquivos](#estrutura-de-arquivos)
 - [Diagrama de classes](#diagrama-de-classes)
@@ -47,13 +47,15 @@ fatores que afetam a perda de energia do sistema.
 - `F2` ou `D`: Mostrar informação de depuração
 - `F3`ou `T`: Mostrar o contador de tempo da simulação
 
-## Requisitos
+## Compilação
+
+### Requisitos
 
 - C++11 ou superior
 - Biblioteca [raylib](https://www.raylib.com) para visualização
 - make para compilar
 
-## Compilação
+### Instruções
 
 - `make`: compilar.
 - `make run`: executar o binário principal (`/bin/pendulos`).
