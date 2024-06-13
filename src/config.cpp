@@ -53,8 +53,13 @@ Config::Config(const std::string& file_path) : paused(false) {
 }
 
 void Config::init_font() {
-  font = LoadFontEx(font_path.c_str(), int(font_size), NULL, 1024);
-  SetTextureFilter(font.texture, TEXTURE_FILTER_TRILINEAR);
+  if (IsFileExtension(font_path.c_str(), ".png")) {
+    font      = LoadFont(font_path.c_str());
+    font_size = font.baseSize;
+    SetTextureFilter(font.texture, TEXTURE_FILTER_POINT);
+  } else {
+    font = LoadFontEx(font_path.c_str(), int(font_size), NULL, 1024);
+    SetTextureFilter(font.texture, TEXTURE_FILTER_TRILINEAR);
+  }
 }
-
 /* ------------------------------------------------------------------------ */
