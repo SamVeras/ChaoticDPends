@@ -198,7 +198,7 @@ classDiagram
 
   class `toml++` {
       <<Biblioteca>>
-      +parse(std::string file_path)
+      <!-- +parse(std::string file_path) -->
   }
 
   class raylib {
@@ -213,11 +213,11 @@ classDiagram
   Game            *-- "many" Drawable
   Game            *-- "1" Config
   Config          *-- `config.toml` : Carrega
-  Config          <.. `toml++` : Utiliza
-  Funções         <.. `toml++` : Utiliza
-  Funções         <.. raylib : Utiliza
-  SimplePendulum  <.. raylib : Utiliza
-  DoublePendulum  <.. raylib : Utiliza
+  Config          ..> `toml++` : Utiliza
+  Funções         ..> `toml++` : Utiliza
+  Funções         ..> raylib : Utiliza
+  SimplePendulum  ..> raylib : Utiliza
+  DoublePendulum  ..> raylib : Utiliza
 ```
 
 ## Continhas
