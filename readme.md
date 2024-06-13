@@ -209,7 +209,7 @@ classDiagram
   Pendulum        <|-- DoublePendulum
   SimplePendulum  *-- "1" PendulumArm
   DoublePendulum  *-- "2" PendulumArm
-  Game            *-- "many" Drawable
+  Game            *-- "múltiplos" Drawable
   Game            *-- "1" Config
   Config          *-- `config.toml` : Carrega
   Config          ..> `toml++` : Utiliza
