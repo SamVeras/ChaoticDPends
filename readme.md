@@ -1,4 +1,4 @@
-# Simulador de Pêndulos Duplos Caóticos
+# Simulador de Comportamento Caótico de Pêndulos Duplos
 
 ### Índice
 
