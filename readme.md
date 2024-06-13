@@ -321,6 +321,8 @@ internet.[^5][^6]
 - ROMULUS FONT projetada por Hewett Tsoi.
 - Liberation :tm: Fonts projetadas por Red Hat.
 - Contribuidores da biblioteca Raylib.
+- Contribuidores da biblioteca toml++.
+- Eu kk
 
 [^1]: Um pêndulo duplo consiste em dois pêndulos conectados de ponta a ponta.
 [^2]: http://www.physics.usyd.edu.au/~wheat/dpend_html/
