@@ -157,11 +157,6 @@ void Game::add_drawable(std::unique_ptr<Drawable> ptr) {
 
 // Interpretar entrada do usuário
 void Game::input() {
-  if (IsKeyPressed(KEY_ESCAPE) | IsKeyPressed(KEY_Q))
-    CloseWindow();
-
-  // Talvez eu remova isso, caso seja
-  // necessário manter a resolução original guardada
   if (IsWindowResized()) {
     settings.win_width  = GetScreenWidth();
     settings.win_height = GetScreenHeight();
@@ -169,23 +164,27 @@ void Game::input() {
 
   if (IsFileDropped()) {
     FilePathList d = LoadDroppedFiles();
-
     if (IsFileExtension(d.paths[0], ".toml")) {
       settings = Config(d.paths[0]);
       reset();
     }
-
     UnloadDroppedFiles(d);
   }
+
+  if (IsKeyPressed(KEY_ESCAPE) | IsKeyPressed(KEY_Q))
+    CloseWindow();
 
   if (IsKeyPressed(KEY_P))
     settings.paused = !settings.paused;
 
-  if (IsKeyPressed(KEY_F1) | IsKeyPressed(KEY_D))
+  if (IsKeyPressed(KEY_F1) | IsKeyPressed(KEY_F))
+    settings.show_fps = !settings.show_fps;
+
+  if (IsKeyPressed(KEY_F2) | IsKeyPressed(KEY_D))
     settings.debug_mode = !settings.debug_mode;
 
-  if (IsKeyPressed(KEY_F2) | IsKeyPressed(KEY_F))
-    settings.show_fps = !settings.show_fps;
+  if (IsKeyPressed(KEY_F3) | IsKeyPressed(KEY_T))
+    settings.show_timer = !settings.show_timer;
 
   if (IsKeyPressed(KEY_R))
     reset();
