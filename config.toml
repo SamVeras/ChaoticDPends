@@ -8,8 +8,8 @@ font = "res/LiberationMono-Bold.ttf"
 font_size = 18
 
 [debug]
-show_fps = true
-debug_mode = true
+show_fps = false
+debug_mode = false
 
 [pendulums]
 origin = [400, 400]

@@ -34,7 +34,7 @@ void create_pendulums(Game& game, const Config& settings) {
 
 /* ------------------------------ Construtor ------------------------------ */
 
-Game::Game() {
+Game::Game() : settings("config.toml") {
   create_pendulums(*this, settings);
 
   SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_MSAA_4X_HINT);
@@ -57,7 +57,8 @@ Game::~Game() {
 // Mostrar o FPS
 void Game::display_fps() {
   std::string str = "FPS: " + std::to_string(GetFPS());
-  DrawTextEx(settings.font, str.c_str(), {0, 0}, settings.font_size, 1, WHITE);
+  Color       c   = invert_color(settings.background_color);
+  DrawTextEx(settings.font, str.c_str(), {0, 0}, settings.font_size, 1, c);
 }
 
 /* ------------------------------------------------------------------------ */
@@ -99,10 +100,10 @@ void Game::display_debug() {
   std::array<str, 9> debug = {ANG2, ANG1, DMP, GRV, MSS, LEN, DT, RES, CNT};
 
   float y = GetScreenHeight() - settings.font_size;
+  Color c = invert_color(settings.background_color);
   for (size_t i = 0; i < debug.size(); i++) {
     str S = debug[i];
-    DrawTextEx(settings.font, S.c_str(), {0, y - i * settings.font_size}, settings.font_size, 1,
-               WHITE);
+    DrawTextEx(settings.font, S.c_str(), {0, y - i * settings.font_size}, settings.font_size, 1, c);
   }
 }
 
@@ -110,6 +111,10 @@ void Game::display_debug() {
 void Game::reset() {
   drawables.clear();
   create_pendulums(*this, settings);
+  settings.init_font();
+  SetWindowSize(settings.win_width, settings.win_height);
+  SetWindowTitle(settings.title.c_str());
+  SetTargetFPS(settings.framerate);
 }
 
 /* ------------------------------------------------------------------------ */
@@ -125,6 +130,24 @@ void Game::add_drawable(std::unique_ptr<Drawable> ptr) {
 void Game::input() {
   if (IsKeyPressed(KEY_ESCAPE) | IsKeyPressed(KEY_Q))
     CloseWindow();
+
+  // Talvez eu remova isso, caso seja
+  // necessário manter a resolução original guardada
+  if (IsWindowResized()) {
+    settings.win_width  = GetScreenWidth();
+    settings.win_height = GetScreenHeight();
+  }
+
+  if (IsFileDropped()) {
+    FilePathList d = LoadDroppedFiles();
+
+    if (IsFileExtension(d.paths[0], ".toml")) {
+      settings = Config(d.paths[0]);
+      reset();
+    }
+
+    UnloadDroppedFiles(d);
+  }
 
   if (IsKeyPressed(KEY_P))
     settings.paused = !settings.paused;

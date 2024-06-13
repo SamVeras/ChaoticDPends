@@ -25,6 +25,8 @@ class Config {
   Font        font;
 
   void init_font();
-  Config();
+
+  Config() = delete;
+  Config(const std::string& file_path);
   ~Config() = default;
 };

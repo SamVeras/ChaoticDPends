@@ -6,8 +6,8 @@
 /*                           Construtor de Config                           */
 /* ------------------------------------------------------------------------ */
 
-Config::Config() : paused(false) {
-  auto config = toml::parse_file("config.toml");
+Config::Config(const std::string& file_path) : paused(false) {
+  auto config = toml::parse_file(file_path);
 
   // Window settings
   title            = config["window"]["title"].value_or("Failed to load title");

@@ -12,6 +12,13 @@ Color load_color(const toml::v3::node_view<toml::v3::node>& node) {
           (unsigned char)node[2].value_or(255), (unsigned char)node[3].value_or(255)};
 }
 
+Color invert_color(const Color& color) {
+  unsigned char R = 255 - color.r;
+  unsigned char G = 255 - color.g;
+  unsigned char B = 255 - color.b;
+  return {R, G, B, color.a};
+}
+
 /* ------------------------------------------------------------------------ */
 
 // Converte de graus para radianos

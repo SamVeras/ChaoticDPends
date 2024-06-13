@@ -6,9 +6,10 @@
 /*                              Funções helpers                             */
 /* ------------------------------------------------------------------------ */
 
-/* ---------------------- TOML array -> Raylib Color ---------------------- */
+/* ---------------------------- Color functions --------------------------- */
 
 Color load_color(const toml::v3::node_view<toml::v3::node>& node);
+Color invert_color(const Color& color);
 
 /* ------------------------- Funções de conversão ------------------------- */
 
