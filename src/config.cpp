@@ -6,7 +6,7 @@
 /*                           Construtor de Config                           */
 /* ------------------------------------------------------------------------ */
 
-Config::Config() {
+Config::Config() : paused(false) {
   auto config = toml::parse_file("config.toml");
 
   // Window settings

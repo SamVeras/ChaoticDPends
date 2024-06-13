@@ -115,8 +115,13 @@ void Game::run() {
       display_fps();
     if (settings.debug_mode)
       display_debug();
-    for (auto& drawable : drawables)
-      drawable->update(GetFrameTime()), drawable->draw();
+
+    for (auto& drawable : drawables) {
+      if (!settings.paused)
+        drawable->update(GetFrameTime());
+      drawable->draw();
+    }
+
     EndDrawing();
   }
 }
