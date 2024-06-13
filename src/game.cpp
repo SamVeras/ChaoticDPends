@@ -68,31 +68,33 @@ void Game::display_debug() {
   using str = std::string;
   using std::to_string;
 
-  const str CNT_t  = "Contagem:";
-  const str RES_t  = "Resolucao:";
-  const str DT_t   = "Delta-tempo:";
-  const str LEN_t  = "Tamanhos:";
-  const str MSS_t  = "Massas:";
-  const str GRV_t  = "Gravidade:";
-  const str DMP_t  = "Damping:";
-  const str ANG1_t = "Dif. inicial 1:";
-  const str ANG2_t = "Dif. inicial 2:";
+  const str CNT_t = "Contagem:";
+  const str RES_t = "Resolucao:";
+  const str DT_t  = "Delta-tempo:";
+  const str LEN_t = "Tamanhos:";
+  const str MSS_t = "Massas:";
+  const str GRV_t = "Gravidade:";
+  const str DMP_t = "Damping:";
+  // const str ANG1_t = "Dif. inicial 1:";
+  // const str ANG2_t = "Dif. inicial 2:";
 
-  float tdif1 = angle_difference(settings.initial_theta_1, settings.final_theta_1);
-  float tdif2 = angle_difference(settings.initial_theta_1, settings.final_theta_1);
+  // float tdif1 = angle_difference(settings.initial_theta_1, settings.final_theta_1);
+  // float tdif2 = angle_difference(settings.initial_theta_1, settings.final_theta_1);
 
-  const str CNT  = to_string(settings.count);
-  const str RES  = to_string(GetScreenWidth()) + "x" + to_string(GetScreenHeight());
-  const str DT   = format_float(GetFrameTime() * 1000, 2) + "ms";
-  const str LEN  = format_float(settings.length_1, 2) + ", " + format_float(settings.length_2, 2);
-  const str MSS  = format_float(settings.mass_1, 2) + ", " + format_float(settings.mass_2, 2);
-  const str GRV  = format_float(Global::gravity, 4) + "m/s^2";
-  const str DMP  = format_float(settings.damping * 100, 5) + "%";
-  const str ANG1 = format_float(tdif1 * 100, 10) + "%";
-  const str ANG2 = format_float(tdif2 * 100, 10) + "%";
+  const str CNT = to_string(settings.count);
+  const str RES = to_string(GetScreenWidth()) + "x" + to_string(GetScreenHeight());
+  const str DT  = format_float(GetFrameTime() * 1000, 2) + "ms";
+  const str LEN = format_float(settings.length_1, 2) + ", " + format_float(settings.length_2, 2);
+  const str MSS = format_float(settings.mass_1, 2) + ", " + format_float(settings.mass_2, 2);
+  const str GRV = format_float(Global::gravity, 4) + "m/s^2";
+  const str DMP = format_float(settings.damping * 100, 5) + "%";
+  // const str ANG1 = format_float(tdif1 * 100, 10) + "%";
+  // const str ANG2 = format_float(tdif2 * 100, 10) + "%";
 
-  std::array<str, 9> title = {CNT_t, RES_t, DT_t, LEN_t, MSS_t, GRV_t, DMP_t, ANG1_t, ANG2_t};
-  std::array<str, 9> debug = {CNT, RES, DT, LEN, MSS, GRV, DMP, ANG1, ANG2};
+  // std::array<str, 9> title = {CNT_t, RES_t, DT_t, LEN_t, MSS_t, GRV_t, DMP_t, ANG1_t, ANG2_t};
+  // std::array<str, 9> debug = {CNT, RES, DT, LEN, MSS, GRV, DMP, ANG1, ANG2};
+  std::array<str, 7> title = {CNT_t, RES_t, DT_t, LEN_t, MSS_t, GRV_t, DMP_t};
+  std::array<str, 7> debug = {CNT, RES, DT, LEN, MSS, GRV, DMP};
 
   float max_title_width = 0;
   for (const auto& t : title) {
@@ -105,12 +107,13 @@ void Game::display_debug() {
   float y = GetScreenHeight() - settings.font_size;
   Color c = invert_color(settings.background_color);
 
-  for (size_t i = debug.size(); i-- > 0;) {
-    str     S   = title[i] + " " + debug[i];
+  for (size_t i = debug.size() - 1; i < debug.size(); i--) {
+    size_t  n   = debug.size() - i - 1;
+    str     S   = title[n] + " " + debug[n];
     Vector2 pos = {0, y - i * settings.font_size};
-    DrawTextEx(settings.font, title[i].c_str(), pos, settings.font_size, 1, c);
+    DrawTextEx(settings.font, title[n].c_str(), pos, settings.font_size, 1, c);
     pos.x += max_title_width + 10;
-    DrawTextEx(settings.font, debug[i].c_str(), pos, settings.font_size, 1, c);
+    DrawTextEx(settings.font, debug[n].c_str(), pos, settings.font_size, 1, c);
   }
 }
 
