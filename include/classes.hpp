@@ -21,15 +21,23 @@ class Drawable {
   void virtual draw() const     = 0;
 };
 
+class Pendulum : public Drawable {
+ protected:
+  Vector2 origin;
+  float   damping;
+
+ public:
+  Pendulum(Vector2 o, float d);
+  ~Pendulum() = default;
+};
+
 /* ------------------------------------------------------------------------ */
 /*                             Classes Concretas                            */
 /* ------------------------------------------------------------------------ */
 
-class SimplePendulum : public Drawable {
+class SimplePendulum : public Pendulum {
  private:
-  Vector2     origin;
   PendulumArm arm;
-  float       damping;
 
  public:
   SimplePendulum(Vector2 o, int l, float m, float t, Color c, float d);
@@ -41,11 +49,9 @@ class SimplePendulum : public Drawable {
 
 /* ------------------------------------------------------------------------ */
 
-class DoublePendulum : public Drawable {
+class DoublePendulum : public Pendulum {
  private:
-  Vector2     origin;
   PendulumArm arm1, arm2;
-  float       damping;
 
  public:
   DoublePendulum(Vector2 o,

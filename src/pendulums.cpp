@@ -3,12 +3,18 @@
 #include "global.hpp"
 
 /* ------------------------------------------------------------------------ */
+/*                             Abstract Pendulum                            */
+/* ------------------------------------------------------------------------ */
+
+Pendulum::Pendulum(Vector2 o, float d) : origin(o), damping(d) {}
+
+/* ------------------------------------------------------------------------ */
 /*                              SimplePendulum                              */
 /* ------------------------------------------------------------------------ */
 /* ------------------------------ Construtor ------------------------------ */
 
 SimplePendulum::SimplePendulum(Vector2 o, int l, float m, float t, Color c, float d)
-    : origin(o), arm{l, m, t, 0.f, 0.f, c}, damping(d) {}
+    : Pendulum(o, d), arm{l, m, t, 0.f, 0.f, c} {}
 
 /* ----------------------------- Update method ---------------------------- */
 
@@ -46,7 +52,7 @@ DoublePendulum::DoublePendulum(Vector2 o,
                                float   t2,
                                Color   c2,
                                float   d)
-    : origin(o), arm1{l1, m1, t1, 0.f, 0.f, c1}, arm2{l2, m2, t2, 0.f, 0.f, c2}, damping(d) {}
+    : Pendulum(o, d), arm1{l1, m1, t1, 0.f, 0.f, c1}, arm2{l2, m2, t2, 0.f, 0.f, c2} {}
 
 /* ----------------------------- Update method ---------------------------- */
 
