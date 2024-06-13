@@ -75,7 +75,7 @@ damping = 0.001
 - `damping`: Variável que controla a diminuição da energia do sistema
 
 ```toml
-[first_arm] # ou [second_arm]
+[first_arm] # a configuração do [second_arm] é idêntica
 length = 200
 initial_theta = 180
 final_theta = 180.5
@@ -91,8 +91,8 @@ mass = 1
 - `final_color`: Cor final dos braços
 - `mass`: Massa do pêndulo, com o ponto gravitacional na ponta do braço.
 
-_Nota: Os pêndulos instanciados terão seus ângulos interpolados entre o $\theta$
-inicial e o $\theta$ final. \
+_Nota: Os pêndulos instanciados terão seus ângulos interpolados entre o_ $\theta$_
+inicial e o_ $\theta$ _final. \
 As cores também serão interpoladas para cada braço, em proporção ao número total
 de pêndulos._
 
