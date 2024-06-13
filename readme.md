@@ -99,7 +99,105 @@ de pêndulos._
 ## Diagrama de classes
 
 ```mermaid
+classDiagram
+  class Drawable {
+      <<Abstract>>
+      +void update(float dt)
+      +void draw() const
+  }
 
+  class Pendulum {
+      <<Abstract>>
+      -Vector2 origin
+      -float damping
+      +Pendulum(Vector2 o, float d)
+      +~Pendulum()
+  }
+
+  class SimplePendulum {
+      -PendulumArm arm
+      +SimplePendulum(Vector2 o, int l, float m, float t, Color c, float d)
+      +~SimplePendulum()
+      +void update(float dt) override
+      +void draw() const override
+  }
+
+  class DoublePendulum {
+      -PendulumArm arm1
+      -PendulumArm arm2
+      +DoublePendulum(Vector2 o, int l1, float m1, float t1, Color c1, int l2, float m2, float t2, Color c2, float d)
+      +~DoublePendulum()
+      +void update(float dt) override
+      +void draw() const override
+  }
+
+  class PendulumArm {
+      int length
+      float mass
+      float theta
+      float theta_v
+      float theta_a
+      Color color
+  }
+
+  class Game {
+      -Config settings
+      -std::vector<std::unique_ptr<Drawable>> drawables
+      -void display_fps()
+      -void display_debug()
+      +void add_drawable(std::unique_ptr<Drawable> ptr)
+      +void run()
+      +Game()
+      +~Game()
+  }
+
+  class Config {
+      +std::string title
+      +size_t win_width
+      +size_t win_height
+      +size_t framerate
+      +Color background_color
+      +Vector2 origin
+      +size_t count
+      +float damping
+      +int length_1
+      +int length_2
+      +float mass_1
+      +float mass_2
+      +float initial_theta_1
+      +float initial_theta_2
+      +float final_theta_1
+      +float final_theta_2
+      +Color initial_color_1
+      +Color final_color_1
+      +Color initial_color_2
+      +Color final_color_2
+      +bool show_fps
+      +bool debug_mode
+      +std::string font_path
+      +float font_size
+      +Font font
+      +void init_font()
+      +Config()
+      +~Config()
+  }
+
+  class HelperFunctions {
+      +Color load_color(const toml::v3::node_view<toml::v3::node>& node)
+      +float degrees_to_radians(float angle)
+      +float radians_to_degrees(float radians)
+      +float angle_interpolation(float from, float to, float p)
+      +Color color_interpolation(const Color& from, const Color& to, float p)
+      +float angle_difference(float from, float to)
+  }
+
+  Drawable <|-- Pendulum
+  Pendulum <|-- SimplePendulum
+  Pendulum <|-- DoublePendulum
+  SimplePendulum "1" *-- "1" PendulumArm
+  DoublePendulum "1" *-- "2" PendulumArm
+  Game "1" *-- "many" Drawable
+  Game "1" *-- "1" Config
 ```
 
 ## Continhas
