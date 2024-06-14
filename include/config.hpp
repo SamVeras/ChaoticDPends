@@ -5,7 +5,7 @@
 class Config {
  public:
   std::string title;
-  size_t      win_width, win_height, framerate;
+  int         win_width, win_height, framerate;
   Color       background_color;
 
   Vector2 origin;

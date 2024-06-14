@@ -50,6 +50,20 @@ Config::Config(const std::string& file_path) : paused(false) {
   final_theta_1   = degrees_to_radians(final_theta_1);
   initial_theta_2 = degrees_to_radians(initial_theta_2);
   final_theta_2   = degrees_to_radians(final_theta_2);
+
+  // Sanity check
+  if (damping < 0.f || damping > 1.f)
+    damping = 0.5f;
+  if (count < 1)
+    count = 0;
+  if (font_size < 1)
+    font_size = 1;
+  if (framerate < 10)
+    framerate = 10;
+  if (win_width < 50)
+    win_width = 50;
+  if (win_height < 50)
+    win_height = 50;
 }
 
 void Config::init_font() {

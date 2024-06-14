@@ -152,9 +152,9 @@ classDiagram
 
   class Config {
       +std::string title
-      +size_t win_width
-      +size_t win_height
-      +size_t framerate
+      +int win_width
+      +int win_height
+      +int framerate
       +Color background_color
       +Vector2 origin
       +size_t count
