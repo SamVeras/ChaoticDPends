@@ -13,6 +13,7 @@ class Game {
   Config                                 settings;
   std::vector<std::unique_ptr<Drawable>> drawables;
   double                                 timer;
+  float                                  sim_speed;
 
   void display_fps();
   void display_debug();

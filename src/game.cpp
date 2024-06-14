@@ -34,7 +34,7 @@ void create_pendulums(Game& game, const Config& settings) {
 
 /* ------------------------------ Construtor ------------------------------ */
 
-Game::Game() : settings("config.toml"), timer(0) {
+Game::Game() : settings("config.toml"), timer(0), sim_speed(1) {
   create_pendulums(*this, settings);
 
   SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_MSAA_4X_HINT);
@@ -121,6 +121,8 @@ void Game::display_timer() {
   std::string str;
   if (settings.paused)
     str += "PAUSADO ";
+  if (sim_speed != 1)
+    str += "x" + format_float(sim_speed, 1) + " ";
   str += "t = " + format_float(timer, 2) + "s";
   Color c   = invert_color(settings.background_color);
   float pad = 10;
@@ -175,6 +177,17 @@ void Game::input() {
   if (IsKeyPressed(KEY_ESCAPE) | IsKeyPressed(KEY_Q))
     CloseWindow();
 
+  if (IsKeyPressed(KEY_ONE))
+    if (sim_speed > 0.1f)
+      sim_speed -= 0.1f;
+
+  if (IsKeyPressed(KEY_TWO))
+    sim_speed = 1.0f;
+
+  if (IsKeyPressed(KEY_THREE))
+    if (sim_speed < 2.0f)
+      sim_speed += 0.1f;
+
   if (IsKeyPressed(KEY_P))
     settings.paused = !settings.paused;
 
@@ -195,7 +208,12 @@ void Game::input() {
 
 // Executar o jogo
 void Game::run() {
+  const float delta_time  = 1.0f / settings.framerate;  // Taxa de atualização fixa
+  float       accumulator = 0.0f;                       // Acumulador de tempo restante
+
   while (!WindowShouldClose()) {
+    accumulator += GetFrameTime() * sim_speed;
+
     BeginDrawing();
     ClearBackground(settings.background_color);
 
@@ -205,17 +223,21 @@ void Game::run() {
     if (settings.debug_mode)
       display_debug();
 
-    if (!settings.paused)
-      timer += GetFrameTime();
+    this->input();
+
+    while (accumulator >= delta_time) {
+      if (!settings.paused) {
+        for (auto& drawable : drawables)
+          drawable->update(delta_time);  // Atualizar usando a taxa de atualização fixa
+        timer += delta_time;             // Atualizar o timer
+      }
+      accumulator -= delta_time;
+    }
 
     if (settings.show_timer)
       display_timer();
 
-    this->input();
-
     for (auto& drawable : drawables) {
-      if (!settings.paused)
-        drawable->update(GetFrameTime());
       drawable->draw();
     }
 

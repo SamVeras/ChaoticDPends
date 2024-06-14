@@ -21,9 +21,9 @@ SimplePendulum::SimplePendulum(Vector2 o, int l, float m, float t, Color c, floa
 void SimplePendulum::update(float dt) {
   float force = arm.mass * Global::gravity * sinf(arm.theta);
 
-  arm.theta_a = -force / arm.length;
+  arm.theta_a = -force / arm.length * dt;
   arm.theta_v += arm.theta_a * dt;
-  arm.theta_v *= damping;
+  arm.theta_v *= (1 - damping * dt);
 
   arm.theta += arm.theta_v;
 }
@@ -80,11 +80,11 @@ void DoublePendulum::update(float dt) {
   arm1.theta_v += arm1.theta_a * dt;
   arm2.theta_v += arm2.theta_a * dt;
 
-  arm1.theta_v -= damping * arm1.theta_v;
-  arm2.theta_v -= damping * arm2.theta_v;
+  arm1.theta_v *= (1 - damping * dt);
+  arm2.theta_v *= (1 - damping * dt);
 
-  arm1.theta += arm1.theta_v;
-  arm2.theta += arm2.theta_v;
+  arm1.theta += arm1.theta_v * dt;
+  arm2.theta += arm2.theta_v * dt;
 }
 
 /* ------------------------------ Draw method ----------------------------- */
