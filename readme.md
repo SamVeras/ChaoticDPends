@@ -41,7 +41,9 @@ fatores que afetam a perda de energia do sistema.
 ### Teclas de Atalho
 
 - `ESC`ou `Q`: Fechar o programa
-- `P`: Pausar a simulação
+- `1` ou `-`, `3` ou `=`: Controlar a velocidade de simulação
+- `2`: Resetar a velocidade de simulação
+- `P` ou `ESPAÇO`: Pausar a simulação
 - `R`: Reiniciar a simulação
 - `F1` ou `F`: Mostrar a taxa de quadros por segundo
 - `F2` ou `D`: Mostrar informação de depuração
@@ -139,6 +141,8 @@ classDiagram
       -Config settings
       -std::vector<std::unique_ptr<Drawable>> drawables
       -double timer
+      -const float delta_t
+      -float accumulator
       -float sim_speed
       -void display_fps()
       -void display_debug()
