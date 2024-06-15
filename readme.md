@@ -53,7 +53,7 @@ fatores que afetam a perda de energia do sistema.
 
 ### Requisitos
 
-- C++11 ou superior
+- C++17 ou superior
 - Biblioteca [raylib](https://www.raylib.com) para visualização
 - make para compilar
 
