@@ -1,5 +1,5 @@
 #include "game.hpp"
-#include <array>
+#include <vector>
 #include "functions.hpp"
 #include "global.hpp"
 
@@ -74,24 +74,25 @@ void Game::display_debug() {
   using str = std::string;
   using std::to_string;
 
-  const str CNT_t = "Contagem:";
-  const str RES_t = "Resolucao:";
-  const str DT_t  = "Delta-tempo:";
-  const str LEN_t = "Tamanhos:";
-  const str MSS_t = "Massas:";
-  const str GRV_t = "Gravidade:";
-  const str DMP_t = "Damping:";
+  std::vector<str> title, debug;
 
-  const str CNT = to_string(settings.count);
-  const str RES = to_string(GetScreenWidth()) + "x" + to_string(GetScreenHeight());
-  const str DT  = format_float(GetFrameTime() * 1000, 2) + "ms";
-  const str LEN = format_float(settings.length_1, 2) + ", " + format_float(settings.length_2, 2);
-  const str MSS = format_float(settings.mass_1, 2) + ", " + format_float(settings.mass_2, 2);
-  const str GRV = format_float(Global::gravity, 4) + "m/s^2";
-  const str DMP = format_float(settings.damping * 100, 5) + "%";
+  title.push_back("Contagem");
+  title.push_back("Resolução");
+  title.push_back("Delta-tempo");
+  title.push_back("Acumulador");
+  title.push_back("Tamanhos");
+  title.push_back("Massas");
+  title.push_back("Gravidade");
+  title.push_back("Damping");
 
-  std::array<str, 7> title = {CNT_t, RES_t, DT_t, LEN_t, MSS_t, GRV_t, DMP_t};
-  std::array<str, 7> debug = {CNT, RES, DT, LEN, MSS, GRV, DMP};
+  debug.push_back(to_string(drawables.size()) + " objetos");
+  debug.push_back(to_string(GetScreenWidth()) + ":" + to_string(GetScreenHeight()));
+  debug.push_back(format_float(delta_t * 1000, 2) + "ms");
+  debug.push_back(format_float(accumulator * 1000, 2) + "ms");
+  debug.push_back(format_float(settings.length_1, 2) + ", " + format_float(settings.length_2, 2));
+  debug.push_back(format_float(settings.mass_1, 2) + ", " + format_float(settings.mass_2, 2));
+  debug.push_back(format_float(Global::gravity, 4) + "m/s/s");
+  debug.push_back(format_float(settings.damping * 100, 5) + "%");
 
   float max_title_width = 0;
   for (const auto& t : title) {
