@@ -39,7 +39,7 @@ Game::Game()
       timer(0),
       delta_t(1.f / settings.framerate),
       accumulator(0.f),
-      sim_speed(1) {
+      sim_speed(1.f) {
   create_pendulums(*this, settings);
 
   SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_MSAA_4X_HINT);
@@ -77,13 +77,14 @@ void Game::display_debug() {
   std::vector<str> title, debug;
 
   title.push_back("Contagem");
-  title.push_back("Resolução");
+  title.push_back("Resolucao");
   title.push_back("Delta-tempo");
   title.push_back("Acumulador");
   title.push_back("Tamanhos");
   title.push_back("Massas");
-  title.push_back("Gravidade");
   title.push_back("Damping");
+  title.push_back("Gravidade");
+  title.push_back("Tempo:");
 
   debug.push_back(to_string(drawables.size()) + " objetos");
   debug.push_back(to_string(GetScreenWidth()) + ":" + to_string(GetScreenHeight()));
@@ -91,8 +92,9 @@ void Game::display_debug() {
   debug.push_back(format_float(accumulator * 1000, 2) + "ms");
   debug.push_back(format_float(settings.length_1, 2) + ", " + format_float(settings.length_2, 2));
   debug.push_back(format_float(settings.mass_1, 2) + ", " + format_float(settings.mass_2, 2));
-  debug.push_back(format_float(Global::gravity, 4) + "m/s/s");
   debug.push_back(format_float(settings.damping * 100, 5) + "%");
+  debug.push_back(format_float(Global::gravity, 4));
+  debug.push_back(format_float(GetTime(), 2) + "s");
 
   float max_title_width = 0;
   for (const auto& t : title) {
