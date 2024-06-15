@@ -66,3 +66,10 @@ std::string format_float(float n, float dec) {
 }
 
 /* ------------------------------------------------------------------------ */
+// Alterna entre estado maximizado ou estado padrão
+void toggle_maximized() {
+  if (IsWindowMaximized())
+    RestoreWindow();
+  else
+    MaximizeWindow();
+}

@@ -30,3 +30,5 @@ double angle_difference(double from, double to);
 std::string format_float(float n, float dec);
 
 /* ------------------------------------------------------------------------ */
+
+void toggle_maximized();

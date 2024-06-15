@@ -182,58 +182,39 @@ void Game::input() {
     }
     UnloadDroppedFiles(d);
   }
-  int key = GetKeyPressed();
-  while (key) {
-    switch (key) {
-      case KEY_ESCAPE:
-      case KEY_Q:
+  /* -------------------------------- Teclado ------------------------------- */
+
+  if (IsKeyPressed(KEY_ESCAPE) | IsKeyPressed(KEY_Q))
         CloseWindow();
-        break;
-      case KEY_ONE:
-      case KEY_MINUS:
+
+  if (IsKeyPressed(KEY_ONE) | IsKeyPressed(KEY_MINUS))
         if (sim_speed > 0.1f)
           sim_speed -= 0.1f;
-        break;
-      case KEY_TWO:
+
+  if (IsKeyPressed(KEY_TWO))
         sim_speed = 1.0f;
-        break;
-      case KEY_THREE:
-      case KEY_EQUAL:
+
+  if (IsKeyPressed(KEY_THREE) | IsKeyPressed(KEY_EQUAL))
         if (sim_speed < 2.0f)
           sim_speed += 0.1f;
-        break;
-      case KEY_P:
-      case KEY_SPACE:
-        settings.paused = !settings.paused;
-        break;
-      case KEY_F1:
-      case KEY_F:
-        if (IsKeyDown(KEY_LEFT_CONTROL)) {  // CTRL F
-          if (IsWindowMaximized())
-            RestoreWindow();
-          else
-            MaximizeWindow();
-          break;
-        }
-        settings.show_fps = !settings.show_fps;
-        break;
-      case KEY_F2:
-      case KEY_D:
-        settings.debug_mode = !settings.debug_mode;
-        break;
-      case KEY_F3:
-      case KEY_T:
-        settings.show_timer = !settings.show_timer;
-        break;
-      case KEY_R:
-        reset();
-        break;
-      default:
-        break;
-    }
 
-    key = GetKeyPressed();
+  if (IsKeyPressed(KEY_P) | IsKeyPressed(KEY_SPACE))
+        settings.paused = !settings.paused;
+
+  if (IsKeyPressed(KEY_F1) | IsKeyPressed(KEY_F)) {
+    if (IsKeyDown(KEY_LEFT_CONTROL))  // CTRL F
+      toggle_maximized();
+          else
+      settings.show_fps = !settings.show_fps;
   }
+  if (IsKeyPressed(KEY_F2) | IsKeyPressed(KEY_D))
+        settings.debug_mode = !settings.debug_mode;
+
+  if (IsKeyPressed(KEY_F3) | IsKeyPressed(KEY_T))
+        settings.show_timer = !settings.show_timer;
+
+  if (IsKeyPressed(KEY_R))
+        reset();
 }
 
 /* ------------------------------------------------------------------------ */

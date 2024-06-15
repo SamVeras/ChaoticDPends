@@ -195,6 +195,7 @@ classDiagram
       +Color color_interpolation(const Color& from, const Color& to, double p)
       +double angle_difference(double from, double to)
       +std::string format_float(float n, float dec)
+      +void toggle_maximized()
   }
 
   class `config.toml` {
