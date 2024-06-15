@@ -34,7 +34,12 @@ void create_pendulums(Game& game, const Config& settings) {
 
 /* ------------------------------ Construtor ------------------------------ */
 
-Game::Game() : settings("config.toml"), timer(0), sim_speed(1) {
+Game::Game()
+    : settings("config.toml"),
+      timer(0),
+      delta_t(1.f / settings.framerate),
+      accumulator(0.f),
+      sim_speed(1) {
   create_pendulums(*this, settings);
 
   SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_MSAA_4X_HINT);
@@ -208,9 +213,6 @@ void Game::input() {
 
 // Executar o jogo
 void Game::run() {
-  const float delta_time  = 1.0f / settings.framerate;  // Taxa de atualização fixa
-  float       accumulator = 0.0f;                       // Acumulador de tempo restante
-
   while (!WindowShouldClose()) {
     accumulator += GetFrameTime() * sim_speed;
 
@@ -220,19 +222,19 @@ void Game::run() {
     if (settings.show_fps)
       display_fps();
 
-    if (settings.debug_mode)
-      display_debug();
-
     this->input();
 
-    while (accumulator >= delta_time) {
+    while (accumulator >= delta_t) {
       if (!settings.paused) {
         for (auto& drawable : drawables)
-          drawable->update(delta_time);  // Atualizar usando a taxa de atualização fixa
-        timer += delta_time;             // Atualizar o timer
+          drawable->update(delta_t);  // Atualizar usando a taxa de atualização fixa
+        timer += delta_t;             // Atualizar o timer
       }
-      accumulator -= delta_time;
+      accumulator -= delta_t;
     }
+
+    if (settings.debug_mode)
+      display_debug();
 
     if (settings.show_timer)
       display_timer();

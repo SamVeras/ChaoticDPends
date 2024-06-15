@@ -12,8 +12,10 @@ class Game {
  private:
   Config                                 settings;
   std::vector<std::unique_ptr<Drawable>> drawables;
-  double                                 timer;
-  float                                  sim_speed;
+  double                                 timer;        // Tempo de simulação
+  const float                            delta_t;      // Taxa de atualização fixa
+  float                                  accumulator;  // Acumulador de tempo restante
+  float                                  sim_speed;    // Velocidade de simulação
 
   void display_fps();
   void display_debug();
