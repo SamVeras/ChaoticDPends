@@ -19,9 +19,10 @@ Config::Config(const std::string& file_path) : paused(false) {
   font_size        = config["window"]["font_size"].value_or(10);
 
   // Debug settings
-  show_fps   = config["debug"]["show_fps"].value_or(false);
-  debug_mode = config["debug"]["debug_mode"].value_or(false);
-  show_timer = config["debug"]["show_timer"].value_or(true);
+  show_fps     = config["debug"]["show_fps"].value_or(false);
+  debug_mode   = config["debug"]["debug_mode"].value_or(false);
+  show_timer   = config["debug"]["show_timer"].value_or(true);
+  camera_debug = config["debug"]["camera_debug"].value_or(false);
 
   // General settings
   origin  = {config["pendulums"]["origin"][0].value_or(0.f),

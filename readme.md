@@ -44,10 +44,11 @@ fatores que afetam a perda de energia do sistema.
 - `1` ou `-`, `3` ou `=`: Controlar a velocidade de simulação
 - `2`: Resetar a velocidade de simulação
 - `P` ou `ESPAÇO`: Pausar a simulação
-- `R`: Reiniciar a simulação
+- `R`: Reiniciar a simulação atual e câmera
 - `F1` ou `F`: Mostrar a taxa de quadros por segundo
 - `F2` ou `D`: Mostrar informação de depuração
-- `F3`ou `T`: Mostrar o contador de tempo da simulação
+- `F3` ou `T`: Mostrar o contador de tempo da simulação
+- `F4` ou `C`: Mostrar informações de câmera
 
 ## Compilação
 
@@ -178,6 +179,8 @@ classDiagram
       +Color final_color_2
       +bool show_fps
       +bool debug_mode
+      +bool show_timer
+      +bool camera_debug
       +std::string font_path
       +float font_size
       +Font font
@@ -259,6 +262,7 @@ debug_mode = false
 - `show_timer`: Ligar ou desligar o timer de simulação
 - `show_fps`: Ligar ou desligar o contador de frames
 - `debug_mode`: Ligar ou desligar as informações de depuração
+- `camera_debug`: Ligar ou delisgar as informações de câmera
 
 ```toml
 [pendulums]

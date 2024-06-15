@@ -11,24 +11,25 @@ font_size = 18
 show_timer = true
 show_fps = false
 debug_mode = false
+camera_debug = false
 
 [pendulums]
-origin = [400, 400]
-count = 10000
+origin = [600, 400]
+count = 5000
 damping = 0.001
 
 [first_arm]
 length = 200
-initial_theta = 180
-final_theta = 180.1
-initial_color = [255, 255, 255, 255]
-final_color = [255, 0, 0, 255]
-mass = 1
+initial_theta = -210
+final_theta = -210.001
+initial_color = [255, 0, 255, 255]
+final_color = [0, 0, 255, 255]
+mass = 1.5
 
 [second_arm]
-length = 200
+length = 300
 initial_theta = 200
-final_theta = 200.1
-initial_color = [0, 0, 255, 255]
-final_color = [0, 255, 0, 255]
+final_theta = 200.001
+initial_color = [0, 255, 255, 255]
+final_color = [255, 255, 0, 255]
 mass = 1

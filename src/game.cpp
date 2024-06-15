@@ -153,6 +153,44 @@ void Game::display_timer() {
 
 /* ------------------------------------------------------------------------ */
 
+void Game::display_camera_debug() {
+  using str = std::string;
+  using std::to_string;
+
+  std::vector<str> title, debug;
+
+  title.push_back("Contagem");
+
+  debug.push_back(to_string(drawables.size()) + " objetos");
+
+  float max_title_width = 0;
+  for (const auto& t : title) {
+    float width = MeasureTextEx(settings.font, t.c_str(), settings.font_size, 1).x;
+    if (width > max_title_width) {
+      max_title_width = width;
+    }
+  }
+
+  float y   = GetScreenHeight() - settings.font_size;
+  Color c   = invert_color(settings.background_color);
+  float pad = 10;
+
+  y -= pad;
+
+  for (size_t i = debug.size() - 1; i < debug.size(); i--) {
+    size_t  n   = debug.size() - i - 1;
+    str     S   = title[n] + " " + debug[n];
+    Vector2 pos = {pad, y - i * settings.font_size};
+
+    DrawTextEx(settings.font, title[n].c_str(), pos, settings.font_size, 1, c);
+
+    pos.x += max_title_width + 10;
+    DrawTextEx(settings.font, debug[n].c_str(), pos, settings.font_size, 1, c);
+  }
+}
+
+/* ------------------------------------------------------------------------ */
+
 // Reiniciar o jogo
 void Game::reset() {
   drawables.clear();
@@ -235,6 +273,9 @@ void Game::input() {
   if (IsKeyPressed(KEY_F3) | IsKeyPressed(KEY_T))
     settings.show_timer = !settings.show_timer;
 
+  if (IsKeyPressed(KEY_F4) | IsKeyPressed(KEY_C))
+    settings.camera_debug = !settings.camera_debug;
+
   if (IsKeyPressed(KEY_R))
     reset();
 }
@@ -265,6 +306,9 @@ void Game::run() {
 
     if (settings.debug_mode)
       display_debug();
+
+    if (settings.camera_debug)
+      display_camera_debug();
 
     if (settings.show_timer)
       display_timer();
