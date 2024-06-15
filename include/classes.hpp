@@ -6,9 +6,10 @@
 /* ------------------------------------------------------------------------ */
 
 struct PendulumArm {
-  int   length;
-  float mass, theta, theta_v, theta_a;
-  Color color;
+  int    length;
+  float  mass;
+  double theta, theta_v, theta_a;
+  Color  color;
 };
 
 /* ------------------------------------------------------------------------ */
@@ -40,7 +41,7 @@ class SimplePendulum : public Pendulum {
   PendulumArm arm;
 
  public:
-  SimplePendulum(Vector2 o, int l, float m, float t, Color c, float d);
+  SimplePendulum(Vector2 o, int l, float m, double t, Color c, float d);
   ~SimplePendulum() = default;
 
   void update(float dt) override;
@@ -57,11 +58,11 @@ class DoublePendulum : public Pendulum {
   DoublePendulum(Vector2 o,
                  int     l1,
                  float   m1,
-                 float   t1,
+                 double  t1,
                  Color   c1,
                  int     l2,
                  float   m2,
-                 float   t2,
+                 double  t2,
                  Color   c2,
                  float   d);
   ~DoublePendulum() = default;

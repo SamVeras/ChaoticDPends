@@ -13,17 +13,17 @@ Color invert_color(const Color& color);
 
 /* ------------------------- Funções de conversão ------------------------- */
 
-float degrees_to_radians(float angle);
-float radians_to_degrees(float radians);
+double degrees_to_radians(double angle);
+double radians_to_degrees(double radians);
 
 /* ------------------------ Funções de interpolação ----------------------- */
 
-float angle_interpolation(float from, float to, float p);
-Color color_interpolation(const Color& from, const Color& to, float p);
+double angle_interpolation(double from, double to, double p);
+Color  color_interpolation(const Color& from, const Color& to, double p);
 
 /* ------------------------------------------------------------------------ */
 
-float angle_difference(float from, float to);
+double angle_difference(double from, double to);
 
 /* ------------------------------------------------------------------------ */
 

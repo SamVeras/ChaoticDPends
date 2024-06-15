@@ -32,16 +32,16 @@ Config::Config(const std::string& file_path) : paused(false) {
   // First arm
   length_1        = config["first_arm"]["length"].value_or(100);
   mass_1          = config["first_arm"]["mass"].value_or(1.f);
-  initial_theta_1 = config["first_arm"]["initial_theta"].value_or(0.f);
-  final_theta_1   = config["first_arm"]["final_theta"].value_or(0.f);
+  initial_theta_1 = config["first_arm"]["initial_theta"].value_or(0.0);
+  final_theta_1   = config["first_arm"]["final_theta"].value_or(0.0);
   initial_color_1 = load_color(config["first_arm"]["initial_color"]);
   final_color_1   = load_color(config["first_arm"]["final_color"]);
 
   // Second arm
   length_2        = config["second_arm"]["length"].value_or(100);
   mass_2          = config["second_arm"]["mass"].value_or(1.f);
-  initial_theta_2 = config["second_arm"]["initial_theta"].value_or(0.f);
-  final_theta_2   = config["second_arm"]["final_theta"].value_or(0.f);
+  initial_theta_2 = config["second_arm"]["initial_theta"].value_or(0.0);
+  final_theta_2   = config["second_arm"]["final_theta"].value_or(0.0);
   initial_color_2 = load_color(config["second_arm"]["initial_color"]);
   final_color_2   = load_color(config["second_arm"]["final_color"]);
 

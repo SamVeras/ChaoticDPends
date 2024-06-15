@@ -7,12 +7,13 @@
 
 // Adicionar pêndulos conforme as configurações
 void create_pendulums(Game& game, const Config& settings) {
-  for (size_t i = 0; i < settings.count; i++) {
-    float   p, t1, t2, m1, m2, l1, l2, d;
-    Color   c1, c2;
-    Vector2 o;
+  double  p, t1, t2;
+  float   m1, m2, l1, l2, d;
+  Color   c1, c2;
+  Vector2 o;
 
-    p  = float(i) / settings.count;
+  for (size_t i = 0; i < settings.count; i++) {
+    p  = (double)i / (double)settings.count;
     o  = settings.origin;
     m1 = settings.mass_1, m2 = settings.mass_2;
     l1 = settings.length_1, l2 = settings.length_2;

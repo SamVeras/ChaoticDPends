@@ -22,27 +22,27 @@ Color invert_color(const Color& color) {
 /* ------------------------------------------------------------------------ */
 
 // Converte de graus para radianos
-float degrees_to_radians(float angle) {
+double degrees_to_radians(double angle) {
   return angle * (M_PI / 180.f);
 }
 /* ------------------------------------------------------------------------ */
 
 // Converte de radianos para graus
-float radians_to_degrees(float radians) {
+double radians_to_degrees(double radians) {
   return radians * (180.f / M_PI);
 }
 
 /* ------------------------------------------------------------------------ */
 
 /* Interpola linearmente entre dois ângulos por um p(eso) entre 0.0 e 1.0 */
-float angle_interpolation(float from, float to, float p) {
+double angle_interpolation(double from, double to, double p) {
   return from + (to - from) * p;
 }
 
 /* ------------------------------------------------------------------------ */
 
 /* Interpola entre duas cores por um p(eso) entre 0.0 e 1.0 */
-Color color_interpolation(const Color& from, const Color& to, float p) {
+Color color_interpolation(const Color& from, const Color& to, double p) {
   unsigned char r = (unsigned char)(from.r + (to.r - from.r) * p);
   unsigned char g = (unsigned char)(from.g + (to.g - from.g) * p);
   unsigned char b = (unsigned char)(from.b + (to.b - from.b) * p);
@@ -52,7 +52,7 @@ Color color_interpolation(const Color& from, const Color& to, float p) {
 
 /* ------------------------------------------------------------------------ */
 
-float angle_difference(float from, float to) {
+double angle_difference(double from, double to) {
   return (to - from) / from;
 }
 

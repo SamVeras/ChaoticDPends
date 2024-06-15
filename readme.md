@@ -113,7 +113,7 @@ classDiagram
 
   class SimplePendulum {
       -PendulumArm arm
-      +SimplePendulum(Vector2 o, int l, float m, float t, Color c, float d)
+      +SimplePendulum(Vector2 o, int l, float m, double t, Color c, float d)
       +~SimplePendulum()
       +void update(float dt) override
       +void draw() const override
@@ -122,7 +122,7 @@ classDiagram
   class DoublePendulum {
       -PendulumArm arm1
       -PendulumArm arm2
-      +DoublePendulum(Vector2 o, int l1, float m1, float t1, Color c1, int l2, float m2, float t2, Color c2, float d)
+      +DoublePendulum(Vector2 o, int l1, float m1, double t1, Color c1, int l2, float m2, double t2, Color c2, float d)
       +~DoublePendulum()
       +void update(float dt) override
       +void draw() const override
@@ -131,9 +131,9 @@ classDiagram
   class PendulumArm {
       int length
       float mass
-      float theta
-      float theta_v
-      float theta_a
+      double theta
+      double theta_v
+      double theta_a
       Color color
   }
 
@@ -168,10 +168,10 @@ classDiagram
       +int length_2
       +float mass_1
       +float mass_2
-      +float initial_theta_1
-      +float initial_theta_2
-      +float final_theta_1
-      +float final_theta_2
+      +double initial_theta_1
+      +double initial_theta_2
+      +double final_theta_1
+      +double final_theta_2
       +Color initial_color_1
       +Color final_color_1
       +Color initial_color_2
@@ -189,11 +189,11 @@ classDiagram
   class Funções {
       +Color load_color(const toml::v3::node_view<toml::v3::node>& node)
       +Color invert_color(const Color& color)
-      +float degrees_to_radians(float angle)
-      +float radians_to_degrees(float radians)
-      +float angle_interpolation(float from, float to, float p)
-      +Color color_interpolation(const Color& from, const Color& to, float p)
-      +float angle_difference(float from, float to)
+      +double degrees_to_radians(double angle)
+      +double radians_to_degrees(double radians)
+      +double angle_interpolation(double from, double to, double p)
+      +Color color_interpolation(const Color& from, const Color& to, double p)
+      +double angle_difference(double from, double to)
       +std::string format_float(float n, float dec)
   }
 
