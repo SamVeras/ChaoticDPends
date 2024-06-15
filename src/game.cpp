@@ -1,4 +1,5 @@
 #include "game.hpp"
+#include <algorithm>
 #include <vector>
 #include "functions.hpp"
 #include "global.hpp"
@@ -42,6 +43,11 @@ Game::Game()
       accumulator(0.f),
       sim_speed(1.f) {
   create_pendulums(*this, settings);
+
+  camera.target   = settings.origin;
+  camera.offset   = {(float)settings.win_width / 2, (float)settings.win_height / 2};
+  camera.rotation = 0.f;
+  camera.zoom     = 1.f;
 
   SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_MSAA_4X_HINT);
   InitWindow(settings.win_width, settings.win_height, settings.title.c_str());
@@ -155,7 +161,12 @@ void Game::reset() {
   SetWindowSize(settings.win_width, settings.win_height);
   SetWindowTitle(settings.title.c_str());
   SetTargetFPS(settings.framerate);
-  timer = 0;
+
+  camera.target   = settings.origin;
+  camera.offset   = {(float)settings.win_width / 2, (float)settings.win_height / 2};
+  camera.rotation = 0.f;
+  camera.zoom     = 1.f;
+  timer           = 0;
 }
 
 /* ------------------------------------------------------------------------ */
@@ -169,6 +180,8 @@ void Game::add_drawable(std::unique_ptr<Drawable> ptr) {
 
 // Interpretar entrada do usuário
 void Game::input() {
+  /* ------------------------------- Janela ------------------------------- */
+
   if (IsWindowResized()) {
     settings.win_width  = GetScreenWidth();
     settings.win_height = GetScreenHeight();
@@ -182,39 +195,48 @@ void Game::input() {
     }
     UnloadDroppedFiles(d);
   }
+
+  /* --------------------------------- Mouse -------------------------------- */
+
+  if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+    camera.offset.x += GetMouseDelta().x, camera.offset.y += GetMouseDelta().y;
+
+  camera.zoom += GetMouseWheelMove();
+  camera.zoom = std::clamp(camera.zoom, 0.5f, 2.0f);
+
   /* -------------------------------- Teclado ------------------------------- */
 
   if (IsKeyPressed(KEY_ESCAPE) | IsKeyPressed(KEY_Q))
-        CloseWindow();
+    CloseWindow();
 
   if (IsKeyPressed(KEY_ONE) | IsKeyPressed(KEY_MINUS))
-        if (sim_speed > 0.1f)
-          sim_speed -= 0.1f;
+    if (sim_speed > 0.1f)
+      sim_speed -= 0.1f;
 
   if (IsKeyPressed(KEY_TWO))
-        sim_speed = 1.0f;
+    sim_speed = 1.0f;
 
   if (IsKeyPressed(KEY_THREE) | IsKeyPressed(KEY_EQUAL))
-        if (sim_speed < 2.0f)
-          sim_speed += 0.1f;
+    if (sim_speed < 2.0f)
+      sim_speed += 0.1f;
 
   if (IsKeyPressed(KEY_P) | IsKeyPressed(KEY_SPACE))
-        settings.paused = !settings.paused;
+    settings.paused = !settings.paused;
 
   if (IsKeyPressed(KEY_F1) | IsKeyPressed(KEY_F)) {
     if (IsKeyDown(KEY_LEFT_CONTROL))  // CTRL F
       toggle_maximized();
-          else
+    else
       settings.show_fps = !settings.show_fps;
   }
   if (IsKeyPressed(KEY_F2) | IsKeyPressed(KEY_D))
-        settings.debug_mode = !settings.debug_mode;
+    settings.debug_mode = !settings.debug_mode;
 
   if (IsKeyPressed(KEY_F3) | IsKeyPressed(KEY_T))
-        settings.show_timer = !settings.show_timer;
+    settings.show_timer = !settings.show_timer;
 
   if (IsKeyPressed(KEY_R))
-        reset();
+    reset();
 }
 
 /* ------------------------------------------------------------------------ */
@@ -246,10 +268,11 @@ void Game::run() {
 
     if (settings.show_timer)
       display_timer();
-
+    BeginMode2D(camera);
     for (auto& drawable : drawables) {
       drawable->draw();
     }
+    EndMode2D();
 
     EndDrawing();
   }

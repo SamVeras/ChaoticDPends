@@ -12,6 +12,7 @@ class Game {
  private:
   Config                                 settings;
   std::vector<std::unique_ptr<Drawable>> drawables;
+  Camera2D                               camera;
   double                                 timer;        // Tempo de simulação
   const float                            delta_t;      // Taxa de atualização fixa
   float                                  accumulator;  // Acumulador de tempo restante
