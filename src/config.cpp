@@ -1,4 +1,7 @@
 #include "config.hpp"
+#include <chrono>
+#include <iostream>
+#include <thread>
 #include <toml++/toml.hpp>
 #include "functions.hpp"
 
@@ -7,7 +10,14 @@
 /* ------------------------------------------------------------------------ */
 
 Config::Config(const std::string& file_path) : paused(false) {
-  auto config = toml::parse_file(file_path);
+  auto config = toml::parse_result{};
+
+  try {
+    config = toml::parse_file(file_path);
+  } catch (const toml::parse_error& err) {
+    std::cerr << "AVISO: Arquivo '" << file_path << "' inexistente!\n";
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+  }
 
   // Window settings
   title            = config["window"]["title"].value_or("Failed to load title");
