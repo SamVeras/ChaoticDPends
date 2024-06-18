@@ -49,6 +49,8 @@ fatores que afetam a perda de energia do sistema.
 - `F2` ou `D`: Mostrar informação de depuração
 - `F3` ou `T`: Mostrar o contador de tempo da simulação
 - `F4` ou `C`: Mostrar informações de câmera
+- `CTRL`+`F`: Alterna entre modo maximizado da janela
+- `CTRL`+`R`: Reinicia completamente a simulação e recarrega o arquivo de configuração
 
 ## Compilação
 
@@ -260,6 +262,7 @@ font_size = 18
 show_timer = true
 show_fps = true
 debug_mode = false
+camera_debug = true
 ```
 
 - `show_timer`: Ligar ou desligar o timer de simulação
