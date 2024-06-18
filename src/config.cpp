@@ -11,8 +11,8 @@ Config::Config(const std::string& file_path) : paused(false) {
 
   // Window settings
   title            = config["window"]["title"].value_or("Failed to load title");
-  win_width        = config["window"]["width"].value_or(10);
-  win_height       = config["window"]["height"].value_or(10);
+  win_width        = config["window"]["width"].value_or(300);
+  win_height       = config["window"]["height"].value_or(300);
   framerate        = config["window"]["framerate"].value_or(60);
   background_color = load_color(config["window"]["background"]);
   font_path        = config["window"]["font"].value_or("res/romulus.png");
@@ -25,24 +25,24 @@ Config::Config(const std::string& file_path) : paused(false) {
   camera_debug = config["debug"]["camera_debug"].value_or(false);
 
   // General settings
-  origin  = {config["pendulums"]["origin"][0].value_or(0.f),
-             config["pendulums"]["origin"][1].value_or(0.f)};
-  count   = config["pendulums"]["count"].value_or(1);
-  damping = config["pendulums"]["damping"].value_or(0.5f);
+  origin.x = config["pendulums"]["origin"][0].value_or(100.f);
+  origin.y = config["pendulums"]["origin"][1].value_or(100.f);
+  count    = config["pendulums"]["count"].value_or(10);
+  damping  = config["pendulums"]["damping"].value_or(0.01f);
 
   // First arm
   length_1        = config["first_arm"]["length"].value_or(100);
   mass_1          = config["first_arm"]["mass"].value_or(1.f);
-  initial_theta_1 = config["first_arm"]["initial_theta"].value_or(0.0);
-  final_theta_1   = config["first_arm"]["final_theta"].value_or(0.0);
+  initial_theta_1 = config["first_arm"]["initial_theta"].value_or(rand_angle());
+  final_theta_1   = config["first_arm"]["final_theta"].value_or(initial_theta_1 + 0.001);
   initial_color_1 = load_color(config["first_arm"]["initial_color"]);
   final_color_1   = load_color(config["first_arm"]["final_color"]);
 
   // Second arm
   length_2        = config["second_arm"]["length"].value_or(100);
   mass_2          = config["second_arm"]["mass"].value_or(1.f);
-  initial_theta_2 = config["second_arm"]["initial_theta"].value_or(0.0);
-  final_theta_2   = config["second_arm"]["final_theta"].value_or(0.0);
+  initial_theta_2 = config["second_arm"]["initial_theta"].value_or(rand_angle());
+  final_theta_2   = config["second_arm"]["final_theta"].value_or(initial_theta_2 + 0.001);
   initial_color_2 = load_color(config["second_arm"]["initial_color"]);
   final_color_2   = load_color(config["second_arm"]["final_color"]);
 
@@ -52,7 +52,7 @@ Config::Config(const std::string& file_path) : paused(false) {
   initial_theta_2 = degrees_to_radians(initial_theta_2);
   final_theta_2   = degrees_to_radians(final_theta_2);
 
-  // Sanity check
+  // Sanity checks
   if (damping < 0.f || damping > 1.f)
     damping = 0.5f;
   if (count < 1)
@@ -68,6 +68,7 @@ Config::Config(const std::string& file_path) : paused(false) {
 }
 
 void Config::init_font() {
+  // Carrega a fonte de forma diferente, caso seja PNG
   if (IsFileExtension(font_path.c_str(), ".png")) {
     font      = LoadFont(font_path.c_str());
     font_size = font.baseSize;

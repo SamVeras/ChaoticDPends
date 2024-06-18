@@ -149,6 +149,7 @@ classDiagram
       -void display_debug()
       -void display_timer()
       -void reset()
+      -void full_reset()
       +void add_drawable(std::unique_ptr<Drawable> ptr)
       +void input()
       +void run()
@@ -190,6 +191,8 @@ classDiagram
   }
 
   class Funções {
+      +unsigned char rand_char()
+      +double rand_angle()
       +Color load_color(const toml::v3::node_view<toml::v3::node>& node)
       +Color invert_color(const Color& color)
       +double degrees_to_radians(double angle)

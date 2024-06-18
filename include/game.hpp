@@ -11,7 +11,7 @@
 class Game {
  private:
   Config                                 settings;
-  std::vector<std::unique_ptr<Drawable>> drawables;
+  std::vector<std::unique_ptr<Drawable>> drawables;    // Vetor de objetos desenháveis
   Camera2D                               camera;
   double                                 timer;        // Tempo de simulação
   const float                            delta_t;      // Taxa de atualização fixa
@@ -22,6 +22,7 @@ class Game {
   void display_debug();
   void display_timer();
   void reset();
+  void full_reset();
 
  public:
   void add_drawable(std::unique_ptr<Drawable> ptr);

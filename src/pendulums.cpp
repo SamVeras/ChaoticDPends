@@ -31,6 +31,7 @@ void SimplePendulum::update(float dt) {
 /* ------------------------------ Draw method ----------------------------- */
 
 void SimplePendulum::draw() const {
+  // (x1, y1) = (x0 + sin(theta), y0 + cos(theta))
   float x = origin.x + arm.length * sin(arm.theta);
   float y = origin.y + arm.length * cos(arm.theta);
   DrawLineV(origin, {x, y}, arm.color);
@@ -57,6 +58,7 @@ DoublePendulum::DoublePendulum(Vector2 o,
 /* ----------------------------- Update method ---------------------------- */
 
 void DoublePendulum::update(float dt) {
+  // Matemática. Veja o readme e as referências pra entender
   double t1 = arm1.theta, t2 = arm2.theta, l1 = arm1.length, l2 = arm2.length;
   double m1 = arm1.mass, m2 = arm2.mass, g = Global::gravity;
   double v1 = arm1.theta_v, v2 = arm2.theta_v;
@@ -90,13 +92,14 @@ void DoublePendulum::update(float dt) {
 /* ------------------------------ Draw method ----------------------------- */
 
 void DoublePendulum::draw() const {
+  // (x1, y1) = (x0 + sin(theta), y0 + cos(theta))
   float x1 = origin.x + sin(arm1.theta) * arm1.length;
   float y1 = origin.y + cos(arm1.theta) * arm1.length;
 
+  // (x2, y2) = (x1 + sin(theta), y1 + cos(theta))
   float x2 = x1 + sin(arm2.theta) * arm2.length;
   float y2 = y1 + cos(arm2.theta) * arm2.length;
 
   DrawLineV(origin, {x1, y1}, arm1.color);
   DrawLineV({x1, y1}, {x2, y2}, arm2.color);
-  // DrawCircleV({x2, y2}, arm2.mass, arm2.color);
 }

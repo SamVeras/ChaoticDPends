@@ -1,5 +1,6 @@
 #include "game.hpp"
 #include <algorithm>
+#include <cassert>
 #include <vector>
 #include "functions.hpp"
 #include "global.hpp"
@@ -8,21 +9,23 @@
 
 // Adicionar pêndulos conforme as configurações
 void create_pendulums(Game& game, const Config& settings) {
-  double  p, t1, t2;
+  double  peso, t1, t2;
   float   m1, m2, l1, l2, d;
   Color   c1, c2;
   Vector2 o;
 
+  // Cria pêndulos, inicializando-os com as configurações e movendo-os para o vetor
   for (size_t i = 0; i < settings.count; i++) {
-    p  = (double)i / (double)settings.count;
+    peso = static_cast<double>(i) / settings.count;  // Peso entre 0.0 e 1.0
+
     o  = settings.origin;
     m1 = settings.mass_1, m2 = settings.mass_2;
     l1 = settings.length_1, l2 = settings.length_2;
     d  = settings.damping;
-    t1 = angle_interpolation(settings.initial_theta_1, settings.final_theta_1, p);
-    t2 = angle_interpolation(settings.initial_theta_2, settings.final_theta_2, p);
-    c1 = color_interpolation(settings.initial_color_1, settings.final_color_1, p);
-    c2 = color_interpolation(settings.initial_color_2, settings.final_color_2, p);
+    t1 = angle_interpolation(settings.initial_theta_1, settings.final_theta_1, peso);
+    t2 = angle_interpolation(settings.initial_theta_2, settings.final_theta_2, peso);
+    c1 = color_interpolation(settings.initial_color_1, settings.final_color_1, peso);
+    c2 = color_interpolation(settings.initial_color_2, settings.final_color_2, peso);
 
     auto P = std::make_unique<DoublePendulum>(o, l1, m1, t1, c1, l2, m2, t2, c2, d);
 
@@ -45,7 +48,8 @@ Game::Game()
   create_pendulums(*this, settings);
 
   camera.target   = settings.origin;
-  camera.offset   = {(float)settings.win_width / 2, (float)settings.win_height / 2};
+  camera.offset   = {static_cast<float>(settings.win_width / 2),
+                     static_cast<float>(settings.win_height / 2)};
   camera.rotation = 0.f;
   camera.zoom     = 1.f;
 
@@ -55,7 +59,7 @@ Game::Game()
   settings.init_font();  // Não é possível inicializar a fonte antes da janela do jogo
 
   SetTargetFPS(settings.framerate);
-  SetExitKey(KEY_NULL);
+  SetExitKey(KEY_NULL);  // Desabilitar a tecla padrão de saída
 }
 
 /* ------------------------------- Destrutor ------------------------------ */
@@ -70,8 +74,7 @@ Game::~Game() {
 void Game::display_fps() {
   std::string str = "FPS: " + std::to_string(GetFPS());
   Color       c   = invert_color(settings.background_color);
-  float       pad = 10;
-  DrawTextEx(settings.font, str.c_str(), {pad, pad}, settings.font_size, 1, c);
+  DrawTextEx(settings.font, str.c_str(), {Global::pad, Global::pad}, settings.font_size, 1, c);
 }
 
 /* ------------------------------------------------------------------------ */
@@ -83,6 +86,8 @@ void Game::display_debug() {
 
   std::vector<str> title, debug;
 
+  title.push_back("Angulo 1:");
+  title.push_back("Angulo 2:");
   title.push_back("Contagem");
   title.push_back("Resolucao");
   title.push_back("Delta-tempo");
@@ -93,6 +98,14 @@ void Game::display_debug() {
   title.push_back("Gravidade");
   title.push_back("Tempo:");
 
+  std::string a = format_float(radians_to_degrees(settings.initial_theta_1), 3) + " -> ";
+  a += format_float(radians_to_degrees(settings.final_theta_1), 3);
+
+  std::string b = format_float(radians_to_degrees(settings.initial_theta_2), 3) + " -> ";
+  b += format_float(radians_to_degrees(settings.final_theta_2), 3);
+
+  debug.push_back(a);
+  debug.push_back(b);
   debug.push_back(to_string(drawables.size()) + " objetos");
   debug.push_back(to_string(GetScreenWidth()) + ":" + to_string(GetScreenHeight()));
   debug.push_back(format_float(delta_t * 1000, 2) + "ms");
@@ -103,28 +116,27 @@ void Game::display_debug() {
   debug.push_back(format_float(Global::gravity, 4));
   debug.push_back(format_float(GetTime(), 2) + "s");
 
+  assert(debug.size() == title.size());
+
   float max_title_width = 0;
-  for (const auto& t : title) {
+  for (const auto& t : title) {  // Encontrar o tamanho da maior string
     float width = MeasureTextEx(settings.font, t.c_str(), settings.font_size, 1).x;
-    if (width > max_title_width) {
+    if (width > max_title_width)
       max_title_width = width;
-    }
   }
 
-  float y   = GetScreenHeight() - settings.font_size;
-  Color c   = invert_color(settings.background_color);
-  float pad = 10;
+  float y = GetScreenHeight() - settings.font_size;  // Ponto inicial da linha
+  Color c = invert_color(settings.background_color);
 
-  y -= pad;
+  y -= Global::pad;
 
   for (size_t i = debug.size() - 1; i < debug.size(); i--) {
-    size_t  n   = debug.size() - i - 1;
-    str     S   = title[n] + " " + debug[n];
-    Vector2 pos = {pad, y - i * settings.font_size};
+    size_t  n   = debug.size() - i - 1;                       // Ordem reversa
+    Vector2 pos = {Global::pad, y - i * settings.font_size};  // Posição da string atual
 
     DrawTextEx(settings.font, title[n].c_str(), pos, settings.font_size, 1, c);
 
-    pos.x += max_title_width + 10;
+    pos.x += max_title_width + 10;  // Espacamento entre as strings
     DrawTextEx(settings.font, debug[n].c_str(), pos, settings.font_size, 1, c);
   }
 }
@@ -134,19 +146,20 @@ void Game::display_debug() {
 // Mostrar o timer
 void Game::display_timer() {
   std::string str;
+
   if (settings.paused)
     str += "PAUSADO ";
-  if (sim_speed != 1)
+
+  if (sim_speed != 1)  // Só mostrar a velocidade se fora diferente do normal
     str += "x" + format_float(sim_speed, 1) + " ";
   str += "t = " + format_float(timer, 2) + "s";
-  Color c   = invert_color(settings.background_color);
-  float pad = 10;
+
+  Color c = invert_color(settings.background_color);
 
   float x = GetScreenWidth() - MeasureTextEx(settings.font, str.c_str(), settings.font_size, 1).x;
-  float y = GetScreenHeight() - settings.font_size;
+  float y = GetScreenHeight() - settings.font_size;  // Ponto inicial da linha
 
-  x -= pad;
-  y -= pad;
+  x -= Global::pad, y -= Global::pad;
 
   DrawTextEx(settings.font, str.c_str(), {x, y}, settings.font_size, 1, c);
 }
@@ -155,18 +168,29 @@ void Game::display_timer() {
 
 // Reiniciar o jogo
 void Game::reset() {
-  drawables.clear();
-  create_pendulums(*this, settings);
+  drawables.clear();                  // Limpar o vetor de objetos desenháveis
+  create_pendulums(*this, settings);  // Recriar os pêndulos
+
   settings.init_font();
   SetWindowSize(settings.win_width, settings.win_height);
   SetWindowTitle(settings.title.c_str());
   SetTargetFPS(settings.framerate);
 
+  // Resetar a camera
   camera.target   = settings.origin;
-  camera.offset   = {(float)settings.win_width / 2, (float)settings.win_height / 2};
+  camera.offset   = {static_cast<float>(settings.win_width / 2),
+                     static_cast<float>(settings.win_height / 2)};
   camera.rotation = 0.f;
   camera.zoom     = 1.f;
   timer           = 0;
+}
+
+/* ------------------------------------------------------------------------ */
+// Reiniciar completamente o jogo
+void Game::full_reset() {
+  settings  = Config("config.toml");  // Recarregar as configurações
+  sim_speed = 1.f;
+  reset();
 }
 
 /* ------------------------------------------------------------------------ */
@@ -180,13 +204,12 @@ void Game::add_drawable(std::unique_ptr<Drawable> ptr) {
 
 // Interpretar entrada do usuário
 void Game::input() {
-  /* ------------------------------- Janela ------------------------------- */
-
-  if (IsWindowResized()) {
+  if (IsWindowResized()) {  // Atualizar tamanho da janela
     settings.win_width  = GetScreenWidth();
     settings.win_height = GetScreenHeight();
   }
 
+  // Carregar arquivo de configuração solto na janela
   if (IsFileDropped()) {
     FilePathList d = LoadDroppedFiles();
     if (IsFileExtension(d.paths[0], ".toml")) {
@@ -198,9 +221,11 @@ void Game::input() {
 
   /* --------------------------------- Mouse -------------------------------- */
 
+  // Se o mouse estiver sendo arrastado, atualizar a posição da camera
   if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
     camera.offset.x += GetMouseDelta().x, camera.offset.y += GetMouseDelta().y;
 
+  // Mudar o zoom com o mouse wheel
   camera.zoom += GetMouseWheelMove();
   camera.zoom = std::clamp(camera.zoom, 0.5f, 2.0f);
 
@@ -238,8 +263,11 @@ void Game::input() {
   if (IsKeyPressed(KEY_F4) | IsKeyPressed(KEY_C))
     settings.camera_debug = !settings.camera_debug;
 
-  if (IsKeyPressed(KEY_R))
+  if (IsKeyPressed(KEY_R)) {
+    if (IsKeyDown(KEY_LEFT_CONTROL))  // CTRL R
+      full_reset();
     reset();
+  }
 }
 
 /* ------------------------------------------------------------------------ */
@@ -248,6 +276,9 @@ void Game::input() {
 void Game::run() {
   while (!WindowShouldClose()) {
     accumulator += GetFrameTime() * sim_speed;
+    // O sistema de time-step fixo com acumulador faz com que a lógica de
+    // simulação tenha uma taxa independente da taxa de atualização de quadros
+    // https://gafferongames.com/post/fix_your_timestep/#free-the-physics
 
     BeginDrawing();
     ClearBackground(settings.background_color);
@@ -255,7 +286,7 @@ void Game::run() {
     if (settings.show_fps)
       display_fps();
 
-    this->input();
+    this->input();  // Interpretar entrada do usuário
 
     while (accumulator >= delta_t) {
       if (!settings.paused) {
@@ -271,10 +302,10 @@ void Game::run() {
 
     if (settings.show_timer)
       display_timer();
-    BeginMode2D(camera);
-    for (auto& drawable : drawables) {
+
+    BeginMode2D(camera);  // Apenas os objetos desenháveis sao renderizados pela câmera
+    for (auto& drawable : drawables)
       drawable->draw();
-    }
     EndMode2D();
 
     EndDrawing();
