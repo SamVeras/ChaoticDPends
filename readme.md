@@ -201,6 +201,7 @@ classDiagram
       +double radians_to_degrees(double radians)
       +double angle_interpolation(double from, double to, double p)
       +Color color_interpolation(const Color& from, const Color& to, double p)
+      +float measure_strings_width(const std::vector<std::string>& strings, Font& font, float font_size)
       +double angle_difference(double from, double to)
       +std::string format_float(float n, float dec)
       +void toggle_maximized()

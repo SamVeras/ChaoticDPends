@@ -13,7 +13,7 @@ unsigned char rand_char() {
 
 // Gera um angulo aleatório
 double rand_angle() {
-  return static_cast<double>(rand() % 36000) / 100.0;
+  return static_cast<double>(rand() % 72000 - 36000) / 100.0;
 }
 
 /* ------------------------------------------------------------------------ */
@@ -65,6 +65,20 @@ Color color_interpolation(const Color& from, const Color& to, double p) {
   unsigned char b = static_cast<unsigned char>(from.b + (to.b - from.b) * p);
   unsigned char a = static_cast<unsigned char>(from.a + (to.a - from.a) * p);
   return {r, g, b, a};
+}
+
+/* ------------------------------------------------------------------------ */
+
+// Encontrar o tamanho da maior string no vector
+float measure_strings_width(const std::vector<std::string>& strings, Font& font, float font_size) {
+  float max_title_width = 0;
+  for (const auto& t : strings) {  // Encontrar o tamanho da maior string
+    float width = MeasureTextEx(font, t.c_str(), font_size, 1).x;
+    if (width > max_title_width)
+      max_title_width = width;
+  }
+
+  return max_title_width;
 }
 
 /* ------------------------------------------------------------------------ */

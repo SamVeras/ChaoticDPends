@@ -81,31 +81,25 @@ void Game::display_fps() {
 
 // Mostrar as configurações
 void Game::display_debug() {
-  using str = std::string;
   using std::to_string;
-
-  std::vector<str> title, debug;
+  std::vector<std::string> title, debug;
 
   title.push_back("Angulo 1:");
   title.push_back("Angulo 2:");
-  title.push_back("Contagem");
-  title.push_back("Resolucao");
-  title.push_back("Delta-tempo");
-  title.push_back("Acumulador");
-  title.push_back("Tamanhos");
-  title.push_back("Massas");
-  title.push_back("Damping");
-  title.push_back("Gravidade");
+  title.push_back("Contagem:");
+  title.push_back("Resolucao:");
+  title.push_back("Delta-tempo:");
+  title.push_back("Acumulador:");
+  title.push_back("Tamanhos:");
+  title.push_back("Massas:");
+  title.push_back("Damping:");
+  title.push_back("Gravidade:");
   title.push_back("Tempo:");
 
-  std::string a = format_float(radians_to_degrees(settings.initial_theta_1), 3) + " -> ";
-  a += format_float(radians_to_degrees(settings.final_theta_1), 3);
-
-  std::string b = format_float(radians_to_degrees(settings.initial_theta_2), 3) + " -> ";
-  b += format_float(radians_to_degrees(settings.final_theta_2), 3);
-
-  debug.push_back(a);
-  debug.push_back(b);
+  debug.push_back(format_float(radians_to_degrees(settings.initial_theta_1), 3) + " -> " +
+                  format_float(radians_to_degrees(settings.final_theta_1), 3));
+  debug.push_back(format_float(radians_to_degrees(settings.initial_theta_2), 3) + " -> " +
+                  format_float(radians_to_degrees(settings.final_theta_2), 3));
   debug.push_back(to_string(drawables.size()) + " objetos");
   debug.push_back(to_string(GetScreenWidth()) + ":" + to_string(GetScreenHeight()));
   debug.push_back(format_float(delta_t * 1000, 2) + "ms");
@@ -118,12 +112,7 @@ void Game::display_debug() {
 
   assert(debug.size() == title.size());
 
-  float max_title_width = 0;
-  for (const auto& t : title) {  // Encontrar o tamanho da maior string
-    float width = MeasureTextEx(settings.font, t.c_str(), settings.font_size, 1).x;
-    if (width > max_title_width)
-      max_title_width = width;
-  }
+  float max_title_width = measure_strings_width(title, settings.font, settings.font_size);
 
   float y = GetScreenHeight() - settings.font_size;  // Ponto inicial da linha
   Color c = invert_color(settings.background_color);
@@ -138,6 +127,35 @@ void Game::display_debug() {
 
     pos.x += max_title_width + 10;  // Espacamento entre as strings
     DrawTextEx(settings.font, debug[n].c_str(), pos, settings.font_size, 1, c);
+  }
+
+  if (!settings.camera_debug)
+    return;
+
+  // Camera debug
+
+  debug.clear(), title.clear();
+  title.push_back("Offset:");
+  title.push_back("Target:");
+  title.push_back("Zoom:");
+  title.push_back("Rotacao:");
+  debug.push_back(format_float(camera.offset.x, 1) + ", " + format_float(camera.offset.y, 1));
+  debug.push_back(format_float(camera.target.x, 1) + ", " + format_float(camera.target.y, 1));
+  debug.push_back(format_float(camera.zoom, 1));
+  debug.push_back(format_float(camera.rotation, 1));
+
+  max_title_width       = measure_strings_width(title, settings.font, settings.font_size);
+  float max_debug_width = measure_strings_width(debug, settings.font, settings.font_size);
+  y                     = 0 + Global::pad;
+  float x               = GetScreenWidth() - max_title_width - max_debug_width - 2 * Global::pad;
+
+  for (size_t i = debug.size() - 1; i < debug.size(); i--) {
+    Vector2 pos = {x, y + i * settings.font_size};  // Posição da string atual
+
+    DrawTextEx(settings.font, title[i].c_str(), pos, settings.font_size, 1, c);
+
+    pos.x += max_title_width + 10;  // Espacamento entre as strings
+    DrawTextEx(settings.font, debug[i].c_str(), pos, settings.font_size, 1, c);
   }
 }
 
@@ -226,7 +244,7 @@ void Game::input() {
     camera.offset.x += GetMouseDelta().x, camera.offset.y += GetMouseDelta().y;
 
   // Mudar o zoom com o mouse wheel
-  camera.zoom += GetMouseWheelMove();
+  camera.zoom += GetMouseWheelMove() / 10.f;
   camera.zoom = std::clamp(camera.zoom, 0.5f, 2.0f);
 
   /* -------------------------------- Teclado ------------------------------- */
