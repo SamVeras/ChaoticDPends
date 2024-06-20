@@ -20,6 +20,8 @@ class Drawable {
  public:
   void virtual update(float dt) = 0;
   void virtual draw() const     = 0;
+
+  virtual ~Drawable() = default;
 };
 
 class Pendulum : public Drawable {
