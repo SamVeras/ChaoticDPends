@@ -19,7 +19,7 @@ class Config {
   Color  initial_color_1, initial_color_2;  // Cores iniciais
   Color  final_color_1, final_color_2;      // Cores finais
 
-  bool        show_fps, debug_mode, paused, show_timer, camera_debug;
+  bool        show_fps, debug_mode, paused, show_timer, camera_debug, maximized;
   std::string font_path;
   float       font_size;
   Font        font;

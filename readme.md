@@ -199,6 +199,7 @@ classDiagram
       +bool debug_mode
       +bool show_timer
       +bool camera_debug
+      +bool maximized
       +std::string font_path
       +float font_size
       +Font font
@@ -261,6 +262,7 @@ title = "Simulação de Pêndulos"
 width = 640
 height = 480
 framerate = 60
+maximized = true
 background = [0, 0, 0, 255]
 font = "res/LiberationMono-Bold.ttf"
 font_size = 18
@@ -270,6 +272,7 @@ font_size = 18
 - `width`: Largura em pixels
 - `height`: Altura em pixels
 - `framerate`: Taxa de atualização
+- `maximized`: Janela inicialmente maximizada
 - `background`: Cor do fundo da tela
 - `font`: Caminho da fonte à ser carregada
 - `font_size`: Tamanho da fonte

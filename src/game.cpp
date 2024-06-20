@@ -61,6 +61,8 @@ Game::Game()
 
   SetTargetFPS(settings.framerate);
   SetExitKey(KEY_NULL);  // Desabilitar a tecla padrão de saída
+  if (settings.maximized)
+    MaximizeWindow();
 }
 
 /* ------------------------------- Destrutor ------------------------------ */
@@ -212,6 +214,8 @@ void Game::full_reset() {
   settings.init_font();
   SetWindowTitle(settings.title.c_str());
   SetTargetFPS(settings.framerate);
+  if (settings.maximized)
+    MaximizeWindow();
   sim_speed = 1.f;
   reset();
 }

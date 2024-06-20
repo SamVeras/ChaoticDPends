@@ -24,6 +24,7 @@ Config::Config(const std::string& file_path) : paused(false) {
   win_width        = config["window"]["width"].value_or(300);
   win_height       = config["window"]["height"].value_or(300);
   framerate        = config["window"]["framerate"].value_or(60);
+  maximized        = config["window"]["maximized"].value_or(false);
   background_color = load_color(config["window"]["background"]);
   font_path        = config["window"]["font"].value_or("res/romulus.png");
   font_size        = config["window"]["font_size"].value_or(10);
