@@ -1,5 +1,7 @@
 # Simulador de Comportamento Caótico de Pêndulos Duplos
 
+https://github.com/SamVeras/ChaoticDPends/assets/99423150/20216f20-96b2-45e2-a7d3-9644accb5246
+
 ### Índice
 
 - [Descrição](#descrição)
@@ -38,11 +40,15 @@ fatores que afetam a perda de energia do sistema.
 - É possível carregar diferentes configurações do programa **arrastando e soltando**
   um arquivo `.toml` com configurações relevantes para a janela do programa.
 
+https://github.com/SamVeras/ChaoticDPends/assets/99423150/55accf3f-27dd-487b-8711-4de8e926ed63
+
 ### Mouse
 
-- É possível mover a câmera com o arrastando com o botão esquerdo.
+- É possível mover a câmera arrastando com o botão esquerdo.
 - Com o jogo **pausado** e **timer zerado**, é possível modificar os ângulos dos
   pêndulos com o botão direito / <kbd>Shift</kbd> + botão direito.
+
+https://github.com/SamVeras/ChaoticDPends/assets/99423150/caa667e0-f3ba-4edf-ae64-f8beca76e562
 
 ### Teclas de Atalho
 
