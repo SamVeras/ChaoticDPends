@@ -10,6 +10,7 @@
 
 class Game {
  private:
+  std::string                            config_path;
   Config                                 settings;
   std::vector<std::unique_ptr<Drawable>> drawables;    // Vetor de objetos desenháveis
   Camera2D                               camera;
@@ -21,6 +22,7 @@ class Game {
   void display_fps();
   void display_debug();
   void display_timer();
+  void light_reset();
   void reset();
   void full_reset();
 

@@ -40,7 +40,8 @@ void create_pendulums(Game& game, const Config& settings) {
 /* ------------------------------ Construtor ------------------------------ */
 
 Game::Game()
-    : settings("config.toml"),
+    : config_path("config.toml"),
+      settings(config_path),
       timer(0),
       delta_t(1.f / settings.framerate),
       accumulator(0.f),
@@ -185,14 +186,15 @@ void Game::display_timer() {
 /* ------------------------------------------------------------------------ */
 
 // Reiniciar o jogo
-void Game::reset() {
+void Game::light_reset() {
   drawables.clear();                  // Limpar o vetor de objetos desenháveis
   create_pendulums(*this, settings);  // Recriar os pêndulos
+}
 
-  settings.init_font();
+void Game::reset() {
+  light_reset();
+
   SetWindowSize(settings.win_width, settings.win_height);
-  SetWindowTitle(settings.title.c_str());
-  SetTargetFPS(settings.framerate);
 
   // Resetar a camera
   camera.target   = settings.origin;
@@ -206,7 +208,10 @@ void Game::reset() {
 /* ------------------------------------------------------------------------ */
 // Reiniciar completamente o jogo
 void Game::full_reset() {
-  settings  = Config("config.toml");  // Recarregar as configurações
+  settings = Config(config_path);  // Recarregar as configurações
+  settings.init_font();
+  SetWindowTitle(settings.title.c_str());
+  SetTargetFPS(settings.framerate);
   sim_speed = 1.f;
   reset();
 }
@@ -231,8 +236,8 @@ void Game::input() {
   if (IsFileDropped()) {
     FilePathList d = LoadDroppedFiles();
     if (IsFileExtension(d.paths[0], ".toml")) {
-      settings = Config(d.paths[0]);
-      reset();
+      config_path = d.paths[0];
+      full_reset();
     }
     UnloadDroppedFiles(d);
   }

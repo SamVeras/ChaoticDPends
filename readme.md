@@ -141,6 +141,7 @@ classDiagram
   }
 
   class Game {
+      -std::string config_path
       -Config settings
       -std::vector<std::unique_ptr<Drawable>> drawables
       -double timer
@@ -150,6 +151,7 @@ classDiagram
       -void display_fps()
       -void display_debug()
       -void display_timer()
+      -void light_reset();
       -void reset()
       -void full_reset()
       +void add_drawable(std::unique_ptr<Drawable> ptr)
