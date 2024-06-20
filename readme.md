@@ -35,21 +35,6 @@ fatores que afetam a perda de energia do sistema.
 
 ## Instruções de Uso
 
-### Drag & Drop
-
-- É possível carregar diferentes configurações do programa **arrastando e soltando**
-  um arquivo `.toml` com configurações relevantes para a janela do programa.
-
-https://github.com/SamVeras/ChaoticDPends/assets/99423150/55accf3f-27dd-487b-8711-4de8e926ed63
-
-### Mouse
-
-- É possível mover a câmera arrastando com o botão esquerdo.
-- Com o jogo **pausado** e **timer zerado**, é possível modificar os ângulos dos
-  pêndulos com o botão direito / <kbd>Shift</kbd> + botão direito.
-
-https://github.com/SamVeras/ChaoticDPends/assets/99423150/caa667e0-f3ba-4edf-ae64-f8beca76e562
-
 ### Teclas de Atalho
 
 | Atalho                                 | Alt.                 | Função                                                     |
@@ -70,6 +55,21 @@ https://github.com/SamVeras/ChaoticDPends/assets/99423150/caa667e0-f3ba-4edf-ae6
 | <kbd> R </kbd>                         |                      | Reiniciar a simulação atual                                |
 | <kbd> CTRL</kbd> + <kbd> R </kbd>      |                      | Reinicia e recarrega o arquivo de configuração             |
 | <kbd> CTRL</kbd> + <kbd> F </kbd>      |                      | Alterna entre modo maximizado da janela                    |
+
+### Drag & Drop
+
+- É possível carregar diferentes configurações do programa **arrastando e soltando**
+  um arquivo `.toml` com configurações relevantes para a janela do programa.
+
+https://github.com/SamVeras/ChaoticDPends/assets/99423150/55accf3f-27dd-487b-8711-4de8e926ed63
+
+### Mouse
+
+- É possível mover a câmera arrastando com o botão esquerdo.
+- Com o jogo **pausado** e **timer zerado**, é possível modificar os ângulos dos
+  pêndulos com o botão direito / <kbd>Shift</kbd> + botão direito.
+
+https://github.com/SamVeras/ChaoticDPends/assets/99423150/caa667e0-f3ba-4edf-ae64-f8beca76e562
 
 ## Compilação
 
