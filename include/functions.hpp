@@ -27,6 +27,7 @@ Color  color_interpolation(const Color& from, const Color& to, double p);
 
 /* --------------------------------- Misc. -------------------------------- */
 
+float  get_mouse_angle(Vector2 offset);
 float  measure_strings_width(const std::vector<std::string>& strings, Font& font, float font_size);
 double angle_difference(double from, double to);
 std::string format_float(float n, float dec);

@@ -69,6 +69,10 @@ Color color_interpolation(const Color& from, const Color& to, double p) {
 
 /* ------------------------------------------------------------------------ */
 
+float get_mouse_angle(Vector2 offset) {
+  return atan2(GetMouseX() - offset.x, GetMouseY() - offset.y);
+}
+
 // Encontrar o tamanho da maior string no vector
 float measure_strings_width(const std::vector<std::string>& strings, Font& font, float font_size) {
   float max_title_width = 0;

@@ -38,19 +38,32 @@ fatores que afetam a perda de energia do sistema.
 - É possível carregar diferentes configurações do programa **arrastando e soltando**
   um arquivo `.toml` com configurações relevantes para a janela do programa.
 
+### Mouse
+
+- É possível mover a câmera com o arrastando com o botão esquerdo.
+- Com o jogo **pausado** e **timer zerado**, é possível modificar os ângulos dos
+  pêndulos com o botão direito / <kbd>Shift</kbd> + botão direito.
+
 ### Teclas de Atalho
 
-- `ESC`ou `Q`: Fechar o programa
-- `1` ou `-`, `3` ou `=`: Controlar a velocidade de simulação
-- `2`: Resetar a velocidade de simulação
-- `P` ou `ESPAÇO`: Pausar a simulação
-- `R`: Reiniciar a simulação atual e câmera
-- `F1` ou `F`: Mostrar a taxa de quadros por segundo
-- `F2` ou `D`: Mostrar informação de depuração
-- `F3` ou `T`: Mostrar o contador de tempo da simulação
-- `F4` ou `C`: Mostrar informações de câmera
-- `CTRL`+`F`: Alterna entre modo maximizado da janela
-- `CTRL`+`R`: Reinicia completamente a simulação e recarrega o arquivo de configuração
+| Atalho                                 | Alt.                 | Função                                                     |
+| -------------------------------------- | -------------------- | ---------------------------------------------------------- |
+| <kbd> 🖱️ LMB</kbd>                     |                      | Move a câmera                                              |
+| <kbd> 🖱️ Scroll</kbd>                  |                      | Ajusta o zoom da câmera                                    |
+| <kbd> 🖱️ RMB</kbd>                     |                      | Modifica o 1º ângulo (jogo **pausado** e **timer zerado**) |
+| <kbd> Shift</kbd> + <kbd> 🖱️ RMB</kbd> |                      | Modifica o 2º ângulo (jogo **pausado** e **timer zerado**) |
+| <kbd> ESC </kbd>                       | <kbd> Q </kbd>       | Fecha o programa                                           |
+| <kbd> 1 </kbd>                         | <kbd> - </kbd>       | Diminui a velocidade da simulação                          |
+| <kbd> 2 </kbd>                         | <kbd> &#9003; </kbd> | Reseta a velocidade de simulação                           |
+| <kbd> 3 </kbd>                         | <kbd> = </kbd>       | Aumenta a velocidade de simulação                          |
+| <kbd> Space </kbd>                     | <kbd> P </kbd>       | Pausa a simulação                                          |
+| <kbd> F1 </kbd>                        | <kbd> F </kbd>       | Mostra a taxa de quadros por segundo                       |
+| <kbd> F2 </kbd>                        | <kbd> D </kbd>       | Mostra informações sobre o programa / simulação            |
+| <kbd> F3 </kbd>                        | <kbd> T </kbd>       | Mostra o contador de tempo da simulação                    |
+| <kbd> F4 </kbd>                        | <kbd> C </kbd>       | Mostra informações da câmera                               |
+| <kbd> R </kbd>                         |                      | Reiniciar a simulação atual                                |
+| <kbd> CTRL</kbd> + <kbd> R </kbd>      |                      | Reinicia e recarrega o arquivo de configuração             |
+| <kbd> CTRL</kbd> + <kbd> F </kbd>      |                      | Alterna entre modo maximizado da janela                    |
 
 ## Compilação
 
@@ -203,6 +216,7 @@ classDiagram
       +double radians_to_degrees(double radians)
       +double angle_interpolation(double from, double to, double p)
       +Color color_interpolation(const Color& from, const Color& to, double p)
+      +float  get_mouse_angle(Vector2 offset)
       +float measure_strings_width(const std::vector<std::string>& strings, Font& font, float font_size)
       +double angle_difference(double from, double to)
       +std::string format_float(float n, float dec)

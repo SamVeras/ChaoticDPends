@@ -248,6 +248,30 @@ void Game::input() {
   if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
     camera.offset.x += GetMouseDelta().x, camera.offset.y += GetMouseDelta().y;
 
+  if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT)) {  // Mudar posição de pêndulos quando estiver pausado
+    if (settings.paused && timer == 0.0) {
+      float mouse_angle;
+
+      if (!IsKeyDown(KEY_LEFT_SHIFT)) {  // Mudar o primeiro pêndulo
+        mouse_angle              = get_mouse_angle(camera.offset);
+        settings.initial_theta_1 = mouse_angle;
+        settings.final_theta_1   = mouse_angle + 0.0001;
+      }
+
+      if (IsKeyDown(KEY_LEFT_SHIFT)) {  // Mudar o segundo pêndulo
+        float x = camera.offset.x + sin(settings.initial_theta_1) * settings.length_1;
+        float y = camera.offset.y + cos(settings.initial_theta_1) * settings.length_1;
+        // O ponto de origem + o fim do primeiro pêndulo
+
+        mouse_angle              = get_mouse_angle({x, y});
+        settings.initial_theta_2 = mouse_angle;
+        settings.final_theta_2   = mouse_angle + 0.0001;
+      }
+
+      light_reset();
+    }
+  }
+
   // Mudar o zoom com o mouse wheel
   camera.zoom += GetMouseWheelMove() / 10.f;
   camera.zoom = std::clamp(camera.zoom, 0.5f, 2.0f);
@@ -261,7 +285,7 @@ void Game::input() {
     if (sim_speed > 0.1f)
       sim_speed -= 0.1f;
 
-  if (IsKeyPressed(KEY_TWO))
+  if (IsKeyPressed(KEY_TWO) | IsKeyPressed(KEY_BACKSPACE))
     sim_speed = 1.0f;
 
   if (IsKeyPressed(KEY_THREE) | IsKeyPressed(KEY_EQUAL))
