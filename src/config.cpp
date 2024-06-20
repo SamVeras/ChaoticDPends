@@ -85,7 +85,7 @@ void Config::init_font() {
     SetTextureFilter(font.texture, TEXTURE_FILTER_POINT);
   } else {
     font = LoadFontEx(font_path.c_str(), int(font_size), NULL, 1024);
-    SetTextureFilter(font.texture, TEXTURE_FILTER_TRILINEAR);
+    SetTextureFilter(font.texture, TEXTURE_FILTER_BILINEAR);
   }
 }
 /* ------------------------------------------------------------------------ */
