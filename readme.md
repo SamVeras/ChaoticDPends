@@ -41,8 +41,8 @@ fatores que afetam a perda de energia do sistema.
 | -------------------------------------- | -------------------- | ---------------------------------------------------------- |
 | <kbd> 🖱️ LMB</kbd>                     |                      | Move a câmera                                              |
 | <kbd> 🖱️ Scroll</kbd>                  |                      | Ajusta o zoom da câmera                                    |
-| <kbd> 🖱️ RMB</kbd>                     |                      | Modifica o 1º ângulo (jogo **pausado** e **timer zerado**) |
-| <kbd> Shift</kbd> + <kbd> 🖱️ RMB</kbd> |                      | Modifica o 2º ângulo (jogo **pausado** e **timer zerado**) |
+| <kbd> 🖱️ RMB</kbd>                     |                      | Modifica o 1º ângulo (simulação **pausada** e **timer zerado**) |
+| <kbd> Shift</kbd> + <kbd> 🖱️ RMB</kbd> |                      | Modifica o 2º ângulo (simulação **pausada** e **timer zerado**) |
 | <kbd> ESC </kbd>                       | <kbd> Q </kbd>       | Fecha o programa                                           |
 | <kbd> 1 </kbd>                         | <kbd> - </kbd>       | Diminui a velocidade da simulação                          |
 | <kbd> 2 </kbd>                         | <kbd> &#9003; </kbd> | Reseta a velocidade de simulação                           |
