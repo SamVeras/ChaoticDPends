@@ -66,7 +66,7 @@ https://github.com/SamVeras/ChaoticDPends/assets/99423150/55accf3f-27dd-487b-871
 ### Mouse
 
 - É possível mover a câmera arrastando com o botão esquerdo.
-- Com o jogo **pausado** e **timer zerado**, é possível modificar os ângulos dos
+- Com o programa **pausado** e **timer zerado**, é possível modificar os ângulos dos
   pêndulos com o botão direito / <kbd>Shift</kbd> + botão direito.
 
 https://github.com/SamVeras/ChaoticDPends/assets/99423150/caa667e0-f3ba-4edf-ae64-f8beca76e562
