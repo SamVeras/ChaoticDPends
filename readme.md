@@ -324,8 +324,8 @@ mass = 1
 - `final_color`: Cor final dos braços
 - `mass`: Massa do pêndulo, com o ponto gravitacional na ponta do braço.
 
-_Nota: Os pêndulos instanciados terão seus ângulos interpolados entre o_ $\theta$_
-inicial e o_ $\theta$ _final. \
+_Nota: Os pêndulos instanciados terão seus ângulos interpolados entre o_ $\theta$ 
+inicial e o $\theta$ _final. \
 As cores também serão interpoladas para cada braço, em proporção ao número total
 de pêndulos._
 
